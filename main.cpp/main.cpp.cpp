@@ -1,20 +1,39 @@
-// main.cpp.cpp : This file contains the 'main' function. Program execution begins and ends there.
-//
-
-#include <iostream>
-
+#include<iostream>
+using namespace std;
+int count = 0;
+struct moodEntry
+{
+	int day;
+	int month;
+	int year;
+	int moodLevel;
+	string moodtype;
+	string note;
+};
+moodEntry moods[100];
+void addMood(moodEntry moods[])
+{
+	cout << "Enter the day\n";
+	cin >> moods->day;
+	cout << "Enter the month\n";
+	cin >> moods->month;
+	cout << "Enter the year\n";
+	cin >> moods->year;
+	cout << "Enter the mood level\n";
+	cin >> moods->moodLevel;
+	do
+	{
+		cout << "wrong input please enter a number between 1 and 5\n";
+	} while (moods->moodLevel > 5 || moods->moodLevel < 1) ;
+	cout << "Enter the mood type \n";
+	cin >> moods->moodtype;
+	cout << "Enter the note\n";
+	cin >> moods->note;
+}
 int main()
 {
-    std::cout << "Hello World!\n";
+
+	int moodCount = 0;
+	 
+	return 0;
 }
-
-// Run program: Ctrl + F5 or Debug > Start Without Debugging menu
-// Debug program: F5 or Debug > Start Debugging menu
-
-// Tips for Getting Started: 
-//   1. Use the Solution Explorer window to add/manage files
-//   2. Use the Team Explorer window to connect to source control
-//   3. Use the Output window to see build output and other messages
-//   4. Use the Error List window to view errors
-//   5. Go to Project > Add New Item to create new code files, or Project > Add Existing Item to add existing code files to the project
-//   6. In the future, to open this project again, go to File > Open > Project and select the .sln file
