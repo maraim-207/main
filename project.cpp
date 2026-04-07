@@ -1,9 +1,3 @@
-#include<iostream>
-using namespace std;
-float averagepermood(int,float &, float &, float &, float &, float &);
-int main() {
-	
-}
 float averagepermood(int entires, float& happyavg, float& sadavg, float& calmavg, float& stressavg, float& angryavg) {
 	int happycount, happy_sum = 0,
 		sadcount, sad_sum = 0,
@@ -11,24 +5,24 @@ float averagepermood(int entires, float& happyavg, float& sadavg, float& calmavg
 		stresscount, stress_sum=0,
 		angrycount, angry_sum = 0;
 	for (int i = 0;i < entires;i++) {
-		if (mood[i].moodtype == "happy") {
-			happy_sum += mood[i].moodlevel;
+		if (moods[i].moodtype == "happy") {
+			happy_sum += moods[i].moodlevel;
 			happycount++;
 		}
-		else if (mood[i].moodtype == "sad") {
-			sad_sum += mood[i].moodllevel;
+		else if (moods[i].moodtype == "sad") {
+			sad_sum += moods[i].moodllevel;
 			sadcount++;
 		}
-		else if (mood[i].moodtype == "calm") {
-			calm_sum += mood[i].moodlevel;
+		else if (moods[i].moodtype == "calm") {
+			calm_sum += moods[i].moodlevel;
 			calmcount++;
 		}
-		else if (mood[i].moodtype == "stress") {
-			stress_sum += mood[i].moodlevel;
+		else if (moods[i].moodtype == "stress") {
+			stress_sum += moods[i].moodlevel;
 			stresscount++;
 		}
-		else if (mood[i].moodtype == "angry") {
-			angry_sum += mood[i].moodlevel;
+		else if (moods[i].moodtype == "angry") {
+			angry_sum += moods[i].moodlevel;
 			angrycount++;
 		}
 	}
