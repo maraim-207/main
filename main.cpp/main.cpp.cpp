@@ -69,7 +69,7 @@ float averagepermood(int entires, float& happyavg, float& sadavg, float& calmavg
 		stressavg = (float)stress_sum / stresscount;
 	if (angrycount > 0)
 		angryavg = angry_sum / angrycount;
-
+}
 
 int main()
 {
