@@ -1,5 +1,6 @@
 #include<iostream>
 using namespace std;
+#define maxModdStorage 100
 int moodCount = 0;
 struct moodEntry
 {
@@ -10,26 +11,43 @@ struct moodEntry
 	string moodtype;
 	string note;
 };
-moodEntry moods[100];
-void addMood(moodEntry moods[])
+moodEntry moods[maxModdStorage];
+void addMood(moodEntry moods[] , int& moodCount)
 {
 	cout << "Enter the day\n";
-	cin >> moods->day;
+	cin >> moods[moodCount].day;
 	cout << "Enter the month\n";
-	cin >> moods->month;
+	cin >> moods[moodCount].month;
 	cout << "Enter the year\n";
-	cin >> moods->year;
+	cin >> moods[moodCount].year;
 	cout << "Enter the mood type \n";
 	cout << "Happy\tSad\tAngry\tStressed\tcalm\n";
-	cin >> moods->moodtype;
+	cin >> moods[moodCount].moodtype;
 	cout << "Enter the mood level\n";
-	cin >> moods->moodLevel;
-	do
+	cin >> moods[moodCount].moodLevel;
+	if (moods[moodCount].moodLevel > 5 || moods[moodCount].moodLevel < 1)
 	{
-		cout << "wrong input please enter a number between 1 and 5\n";
-	} while (moods->moodLevel > 5 || moods->moodLevel < 1) ;
+		do
+		{
+			cout << "wrong input please enter a number between 1 and 5\n";
+			cin >> moods[moodCount].moodLevel;
+		} while (moods[moodCount].moodLevel > 5 || moods[moodCount].moodLevel < 1);
+	}
 	cout << "Enter the note\n";
-	cin >> moods->note;
+	cin >> moods[moodCount].note;
+	moodCount++;
+}
+void preStoredMoods()
+{
+	moods[0] = { 1, 4, 2026, 5, "Happy", "Finished my project" };
+	moods[1] = { 2, 4, 2026, 3, "Calm", "Normal day" };
+	moods[2] = { 3, 4, 2026, 2, "Stressed", "Exam coming up" };
+	moods[3] = { 4, 4, 2026, 5, "sad", "did not pass the exam" };
+	moods[4] = { 5, 4, 2026, 3, "Calm", "Normal day" };
+	moods[5] = { 6, 4, 2026, 2, "Stressed", "Exam coming up" };
+	moods[6] = { 7, 4, 2026, 5, "Happy", "passed the exam" };
+	moods[7] = { 8, 4, 2026, 5, "Calm", "Normal day" };
+	moods[8] = { 9, 4, 2026, 2, "happy", "a new semister comming up" };
 }
 float averagepermood(int entires, float& happyavg, float& sadavg, float& calmavg, float& stressavg, float& angryavg) {
 	int happycount, happy_sum = 0,
