@@ -211,6 +211,55 @@ void display(int& moodCount,moodEntry moods[])
 		cout << "* Notes ^_-: " << moods[moodCount].note << endl;
 	
 }
+void updateFuncion(moodEntry moods[], int moodCount)
+{
+	 int indexDateUserUpdate = -1;
+	int searchDay;
+	int searchMonth;
+	int searchYear;
+	string newMoodtype;
+	int newMoodLevel;
+	string newNote;
+
+
+	do {
+       
+		cout << "Enter day / month / year to update mood entry\n";
+	    cin >> searchDay >> searchMonth >> searchYear;
+
+		for (int i = 0; i < moodCount; i++)
+		{
+			if (moods[i].time.day == searchDay && moods[i].time.month == searchMonth && moods[i].time.year == searchYear)
+			{
+				indexDateUserUpdate = i;
+				break;
+			}
+
+		}
+
+
+
+		if (indexDateUserUpdate == -1)
+			cout << "No entry found for the given date\n";
+		else
+		{
+			display(indexDateUserUpdate, moods);
+			cout << "Enter the new mood type \n";
+			cin >> newMoodtype;
+			cout << "Enter the new mood level\n";
+			cin >> newMoodLevel;
+			cout << "Enter the new note\n";
+			cin >> newNote;
+			moods[indexDateUserUpdate].moodtype = newMoodtype;
+			moods[indexDateUserUpdate].moodLevel = newMoodLevel;
+			moods[indexDateUserUpdate].note = newNote;
+		}
+	} while (indexDateUserUpdate == -1);
+
+	display(indexDateUserUpdate, moods);
+
+}
+
 void dlete(int& moodCount, moodEntry moods[])
 {
 
