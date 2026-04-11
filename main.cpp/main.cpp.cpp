@@ -2,11 +2,15 @@
 using namespace std;
 #define maxModdStorage 100
 int moodCount = 0;
-struct moodEntry
+struct date
 {
 	int day;
 	int month;
 	int year;
+};
+struct moodEntry
+{
+	date time;
 	int moodLevel;
 	string moodtype;
 	string note;
@@ -15,11 +19,11 @@ moodEntry moods[maxModdStorage];
 void addMood(moodEntry moods[] , int& moodCount)
 {
 	cout << "Enter the day\n";
-	cin >> moods[moodCount].day;
+	cin >> moods[moodCount].time.day;
 	cout << "Enter the month\n";
-	cin >> moods[moodCount].month;
+	cin >> moods[moodCount].time.month;
 	cout << "Enter the year\n";
-	cin >> moods[moodCount].year;
+	cin >> moods[moodCount].time.year;
 	cout << "Enter the mood type \n";
 	cout << "Happy\tSad\tAngry\tStressed\tcalm\n";
 	cin >> moods[moodCount].moodtype;
