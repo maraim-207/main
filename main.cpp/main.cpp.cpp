@@ -29,8 +29,19 @@ struct moodEntry
 	string moodtype;
 	string note;
 };
+struct MoodStatistics {
+    int TotalEntries;
+    int HappyCount;
+    int SadCount;
+    int AngryCount;
+    int StressedCount;
+    int CalmCount;
+    double AverageMoodLevel;
+};
+
 UserAccount users[max_users];
 moodEntry moods[maxModdStorage];
+MoodStatistics statistics[12];
 //function declarations
 void logmenu();
 void login();
@@ -70,6 +81,51 @@ void savetofile()
         outfile.close();
     }
 }
+void AnalyzeMoodFrequency(moodEntry moods[], int size, int month) {
+    int mIdx = month - 1;
+    statistics[mIdx].TotalEntries = 0;
+    statistics[mIdx].HappyCount = 0;
+    statistics[mIdx].SadCount = 0;
+    statistics[mIdx].AngryCount = 0;
+    statistics[mIdx].StressedCount = 0;
+    statistics[mIdx].CalmCount = 0;
+
+    for (int i = 0; i < size; i++) {
+        if (moods[i].time.month == month) {
+            statistics[mIdx].TotalEntries++;
+            string type = moods[i].moodtype;
+            if (type == "Happy" || type == "happy") statistics[mIdx].HappyCount++;
+            else if (type == "Sad" || type == "sad") statistics[mIdx].SadCount++;
+            else if (type == "Angry" || type == "angry") statistics[mIdx].AngryCount++;
+            else if (type == "Stressed" || type == "stressed") statistics[mIdx].StressedCount++;
+            else if (type == "Calm" || type == "calm") statistics[mIdx].CalmCount++;
+        }
+    }
+}
+
+void DisplayStatistics(int month) {
+    int mIdx = month - 1;
+    if (statistics[mIdx].TotalEntries == 0) {
+        cout << "\nNo data for month " << month << endl;
+        system("pause");
+        return;
+    }
+
+    cout << "\n--- Statistics Report for Month " << month << " ---" << endl;
+    cout << "Total Records: " << statistics[mIdx].TotalEntries << endl;
+    cout << "Happy: " << statistics[mIdx].HappyCount << " | Sad: " << statistics[mIdx].SadCount << endl;
+    cout << "Angry: " << statistics[mIdx].AngryCount << " | Stressed: " << statistics[mIdx].StressedCount << endl;
+    cout << "Calm: " << statistics[mIdx].CalmCount << endl;
+    cout << "Average Mood Level: " << statistics[mIdx].AverageMoodLevel << " / 5" << endl;
+    system("pause");
+}
+
+void UpdateAllStatistics(moodEntry moods[], int size) {
+    for (int m = 1; m <= 12; m++) {
+        AnalyzeMoodFrequency(moods, size, m);
+    }
+}
+
 
 // Log menu loop function
 void showLogMenu()
