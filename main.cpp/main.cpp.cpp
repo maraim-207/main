@@ -49,6 +49,25 @@ void preStoredMoods()
 	moods[7] = { 8, 4, 2026, 5, "Calm", "Normal day" };
 	moods[8] = { 9, 4, 2026, 2, "happy", "a new semister comming up" };
 }
+void display(int& moodCount,moodEntry moods[])
+{
+		cout << "* Date:" << moods[moodCount].time.day << "/" << moods[moodCount].time.month << "/" << moods[moodCount].time.year << endl;
+		cout << "* Mood type :) " << moods[moodCount].moodtype << endl;
+		cout << "* Mood Level *_* :" << moods[moodCount].moodLevel << endl;
+		cout << "* Notes ^_-: " << moods->note << endl;
+	
+}
+void dlete(int& moodCount, moodEntry moods[])
+{
+
+		cout << "Enter the date you want to delete";
+		cin >> moods[moodCount].time.day; cout << "/";cin >> moods->time.month;cout << "/";cin >> moods->time.year;
+		moods[moodCount].moodLevel = 0;
+		moods[moodCount].moodtype = {};
+		moods[moodCount].note = {};
+
+	
+}
 float averagepermood(int entires, float& happyavg, float& sadavg, float& calmavg, float& stressavg, float& angryavg) {
 	int happycount, happy_sum = 0,
 		sadcount, sad_sum = 0,
