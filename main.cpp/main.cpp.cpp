@@ -286,6 +286,18 @@ void showLogMenu()
 //main function
 int main()
 {
+	//لدعم الرموز والإطارات
+system("chcp 65001 > nul");
+SetConsoleOutputCP(CP_UTF8);
+SetConsoleCP(CP_UTF8);
+HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
+CONSOLE_FONT_INFOEX fontInfo;
+fontInfo.cbSize = sizeof(CONSOLE_FONT_INFOEX);
+GetCurrentConsoleFontEx(hConsole, false, &fontInfo);
+wcscpy_s(fontInfo.FaceName, L"Consolas");
+SetCurrentConsoleFontEx(hConsole, false, &fontInfo);
+
+showLogMenu();
 	return 0;
 }
 void logmenu()
