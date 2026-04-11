@@ -58,7 +58,7 @@ void display(int& moodCount,moodEntry moods[])
 		cout << "* Date:" << moods[moodCount].time.day << "/" << moods[moodCount].time.month << "/" << moods[moodCount].time.year << endl;
 		cout << "* Mood type :) " << moods[moodCount].moodtype << endl;
 		cout << "* Mood Level *_* :" << moods[moodCount].moodLevel << endl;
-		cout << "* Notes ^_-: " << moods->note << endl;
+		cout << "* Notes ^_-: " << moods[moodCount].note << endl;
 	
 }
 void dlete(int& moodCount, moodEntry moods[])
