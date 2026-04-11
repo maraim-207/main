@@ -205,7 +205,85 @@ float averagepermood(int entires, float& happyavg, float& sadavg, float& calmavg
 	if (angrycount > 0)
 		angryavg = angry_sum / angrycount;
 }
+//function declarations
+void logmenu();
+void login();
+void signup();
+void mainmenu();
+void closing();
 
+//Loading data from file function
+int loadfromfile()
+{
+    ifstream infile("users.txt");
+    int count = 0;
+    if (infile.is_open())
+    {
+        while (count < max_users)
+        {
+            if (!(infile >> users[count].username >> users[count].password))
+                break;
+            users[count].userid = count + 1;
+            count++;
+        }
+        infile.close();
+    }
+    return count;
+}
+
+//Saving data to file function
+void savetofile()
+{
+    ofstream outfile("users.txt");
+    if (outfile.is_open())
+    {
+        for (int i = 0; i < userscount; ++i)
+        {
+            outfile << users[i].username << " " << users[i].password << endl;
+        }
+        outfile.close();
+    }
+}
+
+// Log menu loop function
+void showLogMenu()
+{
+    userscount = loadfromfile(); // Reload users each time
+    for (int i = 0; i < userscount; ++i)
+        users[i].userid = i + 1;
+
+    while (true) {
+        logmenu();
+        cin >> logentry;
+
+        switch (logentry)
+        {
+        case 1:
+            login();
+            break;
+        case 2:
+            signup();
+            break;
+        case 3:
+            closing();
+            break;
+        default:
+            system("cls");
+            cout << "╔════════════════════════════════════╗\n";
+            cout << "║           Invalid Entry!           ║\n";
+            cout << "╠════════════════════════════════════╣\n";
+            cout << "║                                    ║\n";
+            cout << "║         Please try again...        ║\n";
+            cout << "║                                    ║\n";
+            cout << "╚════════════════════════════════════╝\n";
+            cin.clear();
+            cin.ignore(10000, '\n');
+            system("timeout /t 4 > nul");
+            continue;
+        }
+    }
+}
+//main function
 int main()
 {
 	return 0;
