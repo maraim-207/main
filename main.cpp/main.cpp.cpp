@@ -203,14 +203,21 @@ void preStoredMoods()
 	moods[7] = { 8, 4, 2026, 5, "Calm", "Normal day" };
 	moods[8] = { 9, 4, 2026, 2, "happy", "a new semister comming up" };
 }
-void display(int& moodCount,moodEntry moods[])
+void display(moodEntry moods[], int& moodCount)
 {
-		cout << "* Date:" << moods[moodCount].time.day << "/" << moods[moodCount].time.month << "/" << moods[moodCount].time.year << endl;
-		cout << "* Mood type :) " << moods[moodCount].moodtype << endl;
-		cout << "* Mood Level *_* :" << moods[moodCount].moodLevel << endl;
-		cout << "* Notes ^_-: " << moods[moodCount].note << endl;
+	cout << "enter the date you want to delete :" << endl;
+		if (moods[moodCount].time.day == moods[moodCount].time.day && moods[moodCount].time.month == moods[moodCount].time.month && moods[moodCount].time.year == moods[moodCount].time.year)
+		{
+
+			cout << "* Date: " << moods[moodCount].time.day << "/" << moods[moodCount].time.month << "/" << moods[moodCount].time.year << endl;
+			cout << "* Mood type :) " << moods[moodCount].moodtype << endl;
+			cout << "* Mood Level *_* : " << moods[moodCount].moodLevel << endl;
+			cout << "* Notes ^_-: " << moods[moodCount].note << endl;
+		}
+		else
+			cout << "invalid date!";
 	
-}
+}	
 void updateFuncion(moodEntry moods[], int moodCount)
 {
 	 int indexDateUserUpdate = -1;
@@ -260,16 +267,22 @@ void updateFuncion(moodEntry moods[], int moodCount)
 
 }
 
-void dlete(int& moodCount, moodEntry moods[])
+void dlete( moodEntry moods[],int& moodCount )
 {
-
 		cout << "Enter the date you want to delete";
-		cin >> moods[moodCount].time.day; cout << "/";cin >> moods->time.month;cout << "/";cin >> moods->time.year;
+		cout << endl;
+		cin >> moods[moodCount].time.day; cout << "/";cin >> moods[moodCount].time.month;cout << "/";cin >> moods[moodCount].time.year;
+
+		 
+	if (moods[moodCount].time.day == moods[moodCount].time.day && moods[moodCount].time.month == moods[moodCount].time.month && moods[moodCount].time.year == moods[moodCount].time.year)
+	{
 		moods[moodCount].moodLevel = 0;
 		moods[moodCount].moodtype = {};
 		moods[moodCount].note = {};
-
-	
+	}
+	else
+		cout << "invalid date!";
+		
 }
 float averagepermood(int entires, float& happyavg, float& sadavg, float& calmavg, float& stressavg, float& angryavg) {
 	int happycount, happy_sum = 0,
