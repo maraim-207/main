@@ -39,6 +39,7 @@ struct MoodStatistics {
 };
 
 UserAccount users[max_users];
+userAccount currentuser;
 moodEntry moods[maxModdStorage];
 MoodStatistics statistics[12];
 date m[max_users];
@@ -125,7 +126,7 @@ void UpdateAllStatistics(moodEntry moods[], int size) {
     }
 }
 void averageMoodlevel(int moodcount,int month) {
-    int currentid = users[currentuser].id;
+    int currentid = currentuser.userid;
     int happy_sum = 0, sad_sum = 0,
         calm_sum = 0, stress_sum = 0,
         angry_sum = 0;
@@ -199,8 +200,10 @@ void averageMoodlevel(int moodcount,int month) {
 void showLogMenu()
 {
     userscount = loadfromfile(); // Reload users each time
-    for (int i = 0; i < userscount; ++i)
+    for (int i = 0; i < userscount; ++i){
         users[i].userid = i + 1;
+      currentuser.userid=users[i].userid;
+    }
 
     while (true) {
         logmenu();
@@ -236,7 +239,6 @@ void showLogMenu()
 
 void addMood(moodEntry moods[], int& moodCount)
 {
-    moods[moodcount].userid=users[currentuser].id;
     cout << "Enter the day\n";
     cin >> moods[moodCount].time.day;
     cout << "Enter the month\n";
