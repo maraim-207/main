@@ -36,12 +36,12 @@ struct MoodStatistics {
     int AngryCount;
     int StressedCount;
     int CalmCount;
-    double AverageMoodLevel;
 };
 
 UserAccount users[max_users];
 moodEntry moods[maxModdStorage];
 MoodStatistics statistics[12];
+moddstatistics avarage;
 //function declarations
 void logmenu();
 void login();
@@ -110,13 +110,12 @@ void DisplayStatistics(int month) {
         system("pause");
         return;
     }
-
     cout << "\n--- Statistics Report for Month " << month << " ---" << endl;
     cout << "Total Records: " << statistics[mIdx].TotalEntries << endl;
     cout << "Happy: " << statistics[mIdx].HappyCount << " | Sad: " << statistics[mIdx].SadCount << endl;
     cout << "Angry: " << statistics[mIdx].AngryCount << " | Stressed: " << statistics[mIdx].StressedCount << endl;
     cout << "Calm: " << statistics[mIdx].CalmCount << endl;
-    cout << "Average Mood Level: " << statistics[mIdx].AverageMoodLevel << " / 5" << endl;
+    cout << "Average Mood Level: " << AverageMoodlevel() << " / 5" << endl;
     system("pause");
 }
 
@@ -125,7 +124,76 @@ void UpdateAllStatistics(moodEntry moods[], int size) {
         AnalyzeMoodFrequency(moods, size, m);
     }
 }
-
+void averageMoodlevel(int moodcount,int month) {
+    int currentid=users[currentuser].id;
+    int happy_sum = 0, sad_sum = 0,
+      calm_sum = 0, stress_sum = 0,
+       angry_sum = 0;
+    float happyave,sadavg,calmave,sressavg,angryave;
+    for (int i = 0; i < moodcount; i++) {
+        if(moods[i].userid!=currentid){
+            countinue;//neglect other users
+        }
+        if(moods[i].mounth!=mounth){
+            countinue;//neglect other mounthes
+        }
+        if (moods[i].moodtype == "happy") {
+            happy_sum += moods[i].moodlevel;
+           statistcs[mIdx].happycount++;
+        }
+        else if (moods[i].moodtype == "sad") {
+            sad_sum += moods[i].moodllevel;
+             statistcs[mIdx].sadcount++;
+        }
+        else if (moods[i].moodtype == "calm") {
+            calm_sum += moods[i].moodlevel;
+              statistcs[mIdx].calmcount++;
+        }
+        else if (moods[i].moodtype == "stress") {
+            stress_sum += moods[i].moodlevel;
+             statistcs[mIdx]. stresscount++;
+        }
+        else if (moods[i].moodtype == "angry") {
+            angry_sum += moods[i].moodlevel;
+              statistcs[mIdx].angrycount++;
+        }
+    }
+    if ( statistcs[mIdx].happycount > 0){
+        happyavg = (float)happy_sum / statistcs[mIdx].happycount;
+    cout<<"happy avarege= "<<happyave<<endl;
+    }
+    else {
+        cout<<" No Happy Avgarage For This Month\n";
+    }
+    if ( statistcs[mIdx].sadcount > 0){
+        sadavg = (float)sad_sum / statistcs[mIdx].sadcount;
+       cout<<"sad avarege= "<<sadave<<endl;
+    }
+    else{
+         cout<<" No Sad Avgarage For This Month\n";
+    }
+    if ( statistcs[mIdx].calmcount > 0){
+        calmavg = (float)calm_sum / statistcs[mIdx].calmcount;
+       cout<<"calm avarege= "<<calmave<<endl;
+    }
+    else{
+         cout<<" No Calm Avgarage For This Month\n";
+    }
+    if (statistcs[mIdx].stresscount > 0){
+        stressavg = (float)stress_sum / statistcs[mIdx].stresscount;
+       cout<<"stress avarege= "<<stressave<<endl;
+    }
+    else{
+         cout<<" No Stress Avgarage For This Month\n";
+    }
+    if (statistcs[mIdx].angrycount > 0){
+        angryavg = angry_sum /  statistcs[mIdx]. angrycount;
+       cout<<"angry avarege= "<<angryave<<endl;
+    }
+    else{
+         cout<<" No Angry Avgarage For This Month\n";
+    }
+}
 
 // Log menu loop function
 void showLogMenu()
@@ -168,6 +236,7 @@ void showLogMenu()
 
 void addMood(moodEntry moods[], int& moodCount)
 {
+    moods[moodcount].userid=users[currentuser].id;
     cout << "Enter the day\n";
     cin >> moods[moodCount].time.day;
     cout << "Enter the month\n";
@@ -227,8 +296,6 @@ void updateFuncion(moodEntry moods[], int moodCount)
     string newMoodtype;
     int newMoodLevel;
     string newNote;
-
-
     do {
 
         cout << "Enter day / month / year to update mood entry\n";
@@ -267,7 +334,7 @@ void updateFuncion(moodEntry moods[], int moodCount)
 
 }
 
-void dlete(moodEntry moods[], int& moodCount)
+void delete(moodEntry moods[], int& moodCount)
 {
     cout << "Enter the date you want to delete";
     cout << endl;
@@ -283,45 +350,6 @@ void dlete(moodEntry moods[], int& moodCount)
     else
         cout << "invalid date!";
 
-}
-float averagepermood(int entires, float& happyavg, float& sadavg, float& calmavg, float& stressavg, float& angryavg) {
-    int happycount, happy_sum = 0,
-        sadcount, sad_sum = 0,
-        calmcount, calm_sum = 0,
-        stresscount, stress_sum = 0,
-        angrycount, angry_sum = 0;
-    for (int i = 0; i < entires; i++) {
-        if (moods[i].moodtype == "happy") {
-            happy_sum += moods[i].moodlevel;
-            happycount++;
-        }
-        else if (moods[i].moodtype == "sad") {
-            sad_sum += moods[i].moodllevel;
-            sadcount++;
-        }
-        else if (moods[i].moodtype == "calm") {
-            calm_sum += moods[i].moodlevel;
-            calmcount++;
-        }
-        else if (moods[i].moodtype == "stress") {
-            stress_sum += moods[i].moodlevel;
-            stresscount++;
-        }
-        else if (moods[i].moodtype == "angry") {
-            angry_sum += moods[i].moodlevel;
-            angrycount++;
-        }
-    }
-    if (happycount > 0)
-        happyavg = (float)happy_sum / happycount;
-    if (sadcount > 0)
-        sadavg = (float)sad_sum / sadcount;
-    if (calmcount > 0)
-        calmavg = (float)calm_sum / calmcount;
-    if (stresscount > 0)
-        stressavg = (float)stress_sum / stresscount;
-    if (angrycount > 0)
-        angryavg = angry_sum / angrycount;
 }
 //function declarations
 void logmenu();
