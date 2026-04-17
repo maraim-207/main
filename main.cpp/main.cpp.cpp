@@ -18,16 +18,16 @@ struct UserAccount
 };
 struct date
 {
-	int day;
-	int month;
-	int year;
+    int day;
+    int month;
+    int year;
 };
 struct moodEntry
 {
-	date time;
-	int moodLevel;
-	string moodtype;
-	string note;
+    date time;
+    int moodLevel;
+    string moodtype;
+    string note;
 };
 struct MoodStatistics {
     int TotalEntries;
@@ -166,162 +166,162 @@ void showLogMenu()
     }
 }
 
-void addMood(moodEntry moods[] , int& moodCount)
+void addMood(moodEntry moods[], int& moodCount)
 {
-	cout << "Enter the day\n";
-	cin >> moods[moodCount].time.day;
-	cout << "Enter the month\n";
-	cin >> moods[moodCount].time.month;
-	cout << "Enter the year\n";
-	cin >> moods[moodCount].time.year;
-	cout << "Enter the mood type \n";
-	cout << "Happy\tSad\tAngry\tStressed\tcalm\n";
-	cin >> moods[moodCount].moodtype;
-	cout << "Enter the mood level\n";
-	cin >> moods[moodCount].moodLevel;
-	if (moods[moodCount].moodLevel > 5 || moods[moodCount].moodLevel < 1)
-	{
-		do
-		{
-			cout << "wrong input please enter a number between 1 and 5\n";
-			cin >> moods[moodCount].moodLevel;
-		} while (moods[moodCount].moodLevel > 5 || moods[moodCount].moodLevel < 1);
-	}
-	cout << "Enter the note\n";
-	cin >> moods[moodCount].note;
-	moodCount++;
+    cout << "Enter the day\n";
+    cin >> moods[moodCount].time.day;
+    cout << "Enter the month\n";
+    cin >> moods[moodCount].time.month;
+    cout << "Enter the year\n";
+    cin >> moods[moodCount].time.year;
+    cout << "Enter the mood type \n";
+    cout << "Happy\tSad\tAngry\tStressed\tcalm\n";
+    cin >> moods[moodCount].moodtype;
+    cout << "Enter the mood level\n";
+    cin >> moods[moodCount].moodLevel;
+    if (moods[moodCount].moodLevel > 5 || moods[moodCount].moodLevel < 1)
+    {
+        do
+        {
+            cout << "wrong input please enter a number between 1 and 5\n";
+            cin >> moods[moodCount].moodLevel;
+        } while (moods[moodCount].moodLevel > 5 || moods[moodCount].moodLevel < 1);
+    }
+    cout << "Enter the note\n";
+    cin >> moods[moodCount].note;
+    moodCount++;
 }
 void preStoredMoods()
 {
-	moods[0] = { 1, 4, 2026, 5, "Happy", "Finished my project" };
-	moods[1] = { 2, 4, 2026, 3, "Calm", "Normal day" };
-	moods[2] = { 3, 4, 2026, 2, "Stressed", "Exam coming up" };
-	moods[3] = { 4, 4, 2026, 5, "sad", "did not pass the exam" };
-	moods[4] = { 5, 4, 2026, 3, "Calm", "Normal day" };
-	moods[5] = { 6, 4, 2026, 2, "Stressed", "Exam coming up" };
-	moods[6] = { 7, 4, 2026, 5, "Happy", "passed the exam" };
-	moods[7] = { 8, 4, 2026, 5, "Calm", "Normal day" };
-	moods[8] = { 9, 4, 2026, 2, "happy", "a new semister comming up" };
+    moods[0] = { 1, 4, 2026, 5, "Happy", "Finished my project" };
+    moods[1] = { 2, 4, 2026, 3, "Calm", "Normal day" };
+    moods[2] = { 3, 4, 2026, 2, "Stressed", "Exam coming up" };
+    moods[3] = { 4, 4, 2026, 5, "sad", "did not pass the exam" };
+    moods[4] = { 5, 4, 2026, 3, "Calm", "Normal day" };
+    moods[5] = { 6, 4, 2026, 2, "Stressed", "Exam coming up" };
+    moods[6] = { 7, 4, 2026, 5, "Happy", "passed the exam" };
+    moods[7] = { 8, 4, 2026, 5, "Calm", "Normal day" };
+    moods[8] = { 9, 4, 2026, 2, "happy", "a new semister comming up" };
 }
 void display(moodEntry moods[], int& moodCount)
 {
-	cout << "enter the date you want to delete :" << endl;
-		if (moods[moodCount].time.day == moods[moodCount].time.day && moods[moodCount].time.month == moods[moodCount].time.month && moods[moodCount].time.year == moods[moodCount].time.year)
-		{
+    cout << "enter the date you want to delete :" << endl;
+    if (moods[moodCount].time.day == moods[moodCount].time.day && moods[moodCount].time.month == moods[moodCount].time.month && moods[moodCount].time.year == moods[moodCount].time.year)
+    {
 
-			cout << "* Date: " << moods[moodCount].time.day << "/" << moods[moodCount].time.month << "/" << moods[moodCount].time.year << endl;
-			cout << "* Mood type :) " << moods[moodCount].moodtype << endl;
-			cout << "* Mood Level *_* : " << moods[moodCount].moodLevel << endl;
-			cout << "* Notes ^_-: " << moods[moodCount].note << endl;
-		}
-		else
-			cout << "invalid date!";
-	
-}	
+        cout << "* Date: " << moods[moodCount].time.day << "/" << moods[moodCount].time.month << "/" << moods[moodCount].time.year << endl;
+        cout << "* Mood type :) " << moods[moodCount].moodtype << endl;
+        cout << "* Mood Level *_* : " << moods[moodCount].moodLevel << endl;
+        cout << "* Notes ^_-: " << moods[moodCount].note << endl;
+    }
+    else
+        cout << "invalid date!";
+
+}
 void updateFuncion(moodEntry moods[], int moodCount)
 {
-	 int indexDateUserUpdate = -1;
-	int searchDay;
-	int searchMonth;
-	int searchYear;
-	string newMoodtype;
-	int newMoodLevel;
-	string newNote;
+    int indexDateUserUpdate = -1;
+    int searchDay;
+    int searchMonth;
+    int searchYear;
+    string newMoodtype;
+    int newMoodLevel;
+    string newNote;
 
 
-	do {
-       
-		cout << "Enter day / month / year to update mood entry\n";
-	    cin >> searchDay >> searchMonth >> searchYear;
+    do {
 
-		for (int i = 0; i < moodCount; i++)
-		{
-			if (moods[i].time.day == searchDay && moods[i].time.month == searchMonth && moods[i].time.year == searchYear)
-			{
-				indexDateUserUpdate = i;
-				break;
-			}
+        cout << "Enter day / month / year to update mood entry\n";
+        cin >> searchDay >> searchMonth >> searchYear;
 
-		}
+        for (int i = 0; i < moodCount; i++)
+        {
+            if (moods[i].time.day == searchDay && moods[i].time.month == searchMonth && moods[i].time.year == searchYear)
+            {
+                indexDateUserUpdate = i;
+                break;
+            }
+
+        }
 
 
 
-		if (indexDateUserUpdate == -1)
-			cout << "No entry found for the given date\n";
-		else
-		{
-			display(indexDateUserUpdate, moods);
-			cout << "Enter the new mood type \n";
-			cin >> newMoodtype;
-			cout << "Enter the new mood level\n";
-			cin >> newMoodLevel;
-			cout << "Enter the new note\n";
-			cin >> newNote;
-			moods[indexDateUserUpdate].moodtype = newMoodtype;
-			moods[indexDateUserUpdate].moodLevel = newMoodLevel;
-			moods[indexDateUserUpdate].note = newNote;
-		}
-	} while (indexDateUserUpdate == -1);
+        if (indexDateUserUpdate == -1)
+            cout << "No entry found for the given date\n";
+        else
+        {
+            display(moods , indexDateUserUpdate);
+            cout << "Enter the new mood type \n";
+            cin >> newMoodtype;
+            cout << "Enter the new mood level\n";
+            cin >> newMoodLevel;
+            cout << "Enter the new note\n";
+            cin >> newNote;
+            moods[indexDateUserUpdate].moodtype = newMoodtype;
+            moods[indexDateUserUpdate].moodLevel = newMoodLevel;
+            moods[indexDateUserUpdate].note = newNote;
+        }
+    } while (indexDateUserUpdate == -1);
 
-	display(indexDateUserUpdate, moods);
+    display(moods, indexDateUserUpdate);
 
 }
 
-void dlete( moodEntry moods[],int& moodCount )
+void dlete(moodEntry moods[], int& moodCount)
 {
-		cout << "Enter the date you want to delete";
-		cout << endl;
-		cin >> moods[moodCount].time.day; cout << "/";cin >> moods[moodCount].time.month;cout << "/";cin >> moods[moodCount].time.year;
+    cout << "Enter the date you want to delete";
+    cout << endl;
+    cin >> moods[moodCount].time.day; cout << "/"; cin >> moods[moodCount].time.month; cout << "/"; cin >> moods[moodCount].time.year;
 
-		 
-	if (moods[moodCount].time.day == moods[moodCount].time.day && moods[moodCount].time.month == moods[moodCount].time.month && moods[moodCount].time.year == moods[moodCount].time.year)
-	{
-		moods[moodCount].moodLevel = 0;
-		moods[moodCount].moodtype = {};
-		moods[moodCount].note = {};
-	}
-	else
-		cout << "invalid date!";
-		
+
+    if (moods[moodCount].time.day == moods[moodCount].time.day && moods[moodCount].time.month == moods[moodCount].time.month && moods[moodCount].time.year == moods[moodCount].time.year)
+    {
+        moods[moodCount].moodLevel = 0;
+        moods[moodCount].moodtype = {};
+        moods[moodCount].note = {};
+    }
+    else
+        cout << "invalid date!";
+
 }
 float averagepermood(int entires, float& happyavg, float& sadavg, float& calmavg, float& stressavg, float& angryavg) {
-	int happycount, happy_sum = 0,
-		sadcount, sad_sum = 0,
-		calmcount, calm_sum = 0,
-		stresscount, stress_sum=0,
-		angrycount, angry_sum = 0;
-	for (int i = 0;i < entires;i++) {
-		if (moods[i].moodtype == "happy") {
-			happy_sum += moods[i].moodlevel;
-			happycount++;
-		}
-		else if (moods[i].moodtype == "sad") {
-			sad_sum += moods[i].moodllevel;
-			sadcount++;
-		}
-		else if (moods[i].moodtype == "calm") {
-			calm_sum += moods[i].moodlevel;
-			calmcount++;
-		}
-		else if (moods[i].moodtype == "stress") {
-			stress_sum += moods[i].moodlevel;
-			stresscount++;
-		}
-		else if (moods[i].moodtype == "angry") {
-			angry_sum += moods[i].moodlevel;
-			angrycount++;
-		}
-	}
-	if (happycount > 0)
-		happyavg = (float)happy_sum / happycount;
-	if (sadcount > 0)
-		sadavg = (float)sad_sum / sadcount;
-	if (calmcount > 0)
-		calmavg = (float)calm_sum / calmcount;
-	if (stresscount > 0)
-		stressavg = (float)stress_sum / stresscount;
-	if (angrycount > 0)
-		angryavg = angry_sum / angrycount;
+    int happycount, happy_sum = 0,
+        sadcount, sad_sum = 0,
+        calmcount, calm_sum = 0,
+        stresscount, stress_sum = 0,
+        angrycount, angry_sum = 0;
+    for (int i = 0; i < entires; i++) {
+        if (moods[i].moodtype == "happy") {
+            happy_sum += moods[i].moodlevel;
+            happycount++;
+        }
+        else if (moods[i].moodtype == "sad") {
+            sad_sum += moods[i].moodllevel;
+            sadcount++;
+        }
+        else if (moods[i].moodtype == "calm") {
+            calm_sum += moods[i].moodlevel;
+            calmcount++;
+        }
+        else if (moods[i].moodtype == "stress") {
+            stress_sum += moods[i].moodlevel;
+            stresscount++;
+        }
+        else if (moods[i].moodtype == "angry") {
+            angry_sum += moods[i].moodlevel;
+            angrycount++;
+        }
+    }
+    if (happycount > 0)
+        happyavg = (float)happy_sum / happycount;
+    if (sadcount > 0)
+        sadavg = (float)sad_sum / sadcount;
+    if (calmcount > 0)
+        calmavg = (float)calm_sum / calmcount;
+    if (stresscount > 0)
+        stressavg = (float)stress_sum / stresscount;
+    if (angrycount > 0)
+        angryavg = angry_sum / angrycount;
 }
 //function declarations
 void logmenu();
@@ -404,19 +404,19 @@ void showLogMenu()
 //main function
 int main()
 {
-	//لدعم الرموز والإطارات
-system("chcp 65001 > nul");
-SetConsoleOutputCP(CP_UTF8);
-SetConsoleCP(CP_UTF8);
-HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
-CONSOLE_FONT_INFOEX fontInfo;
-fontInfo.cbSize = sizeof(CONSOLE_FONT_INFOEX);
-GetCurrentConsoleFontEx(hConsole, false, &fontInfo);
-wcscpy_s(fontInfo.FaceName, L"Consolas");
-SetCurrentConsoleFontEx(hConsole, false, &fontInfo);
+    //لدعم الرموز والإطارات
+    system("chcp 65001 > nul");
+    SetConsoleOutputCP(CP_UTF8);
+    SetConsoleCP(CP_UTF8);
+    HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
+    CONSOLE_FONT_INFOEX fontInfo;
+    fontInfo.cbSize = sizeof(CONSOLE_FONT_INFOEX);
+    GetCurrentConsoleFontEx(hConsole, false, &fontInfo);
+    wcscpy_s(fontInfo.FaceName, L"Consolas");
+    SetCurrentConsoleFontEx(hConsole, false, &fontInfo);
 
-showLogMenu();
-	return 0;
+    showLogMenu();
+    return 0;
 }
 void logmenu()
 {
@@ -458,7 +458,7 @@ void login()
     cout << "║                                        ║\n";
     cout << "║ [1] Log in✔️                           ║\n";
     cout << "║ [2] Don't have an account? Sign up📝   ║\n";
-	cout << "║ [3] Return to home screen...           ║\n";
+    cout << "║ [3] Return to home screen...           ║\n";
     cout << "║                                        ║\n";
     cout << "╚════════════════════════════════════════╝\n";
     cout << " Your entry: ";
@@ -531,7 +531,7 @@ void login()
     else if (entry1 == 3)
     {
         return; // Return to main menu loop
-	}
+    }
     else
     {
         system("cls");
@@ -559,7 +559,7 @@ void signup()
 
     if (userscount < max_users)
     {
-		int entry3;
+        int entry3;
         cout << "╔═════════════════════════════════════════╗\n";
         cout << "║                Sign up📝                ║\n";
         cout << "╠═════════════════════════════════════════╣\n";
@@ -572,7 +572,7 @@ void signup()
         cout << "║ ┌──────────────────────────────┐        ║\n";
         cout << "║ │🔒Confirm password:_          │        ║\n";
         cout << "║ └──────────────────────────────┘        ║\n";
-		cout << "║                                         ║\n";
+        cout << "║                                         ║\n";
         cout << "║ 📝Notes:                                ║\n";
         cout << "║ - User name must be unique.             ║\n";
         cout << "║ - Passwords must match.                 ║\n";
@@ -583,18 +583,18 @@ void signup()
         cout << "║ [3] Return to home screen...            ║\n";
         cout << "║                                         ║\n";
         cout << "╚═════════════════════════════════════════╝\n";
-		cout << " Your entry: ";
-		cin >> entry3;
-		if (entry3 == 3)
+        cout << " Your entry: ";
+        cin >> entry3;
+        if (entry3 == 3)
         {
             return; // Return to main menu loop
         }
-		else if (entry3 == 2)
+        else if (entry3 == 2)
         {
             login();
             return;
         }
-		else if (entry3 != 1)
+        else if (entry3 != 1)
         {
             system("cls");
             cout << "╔════════════════════════════════════╗\n";
