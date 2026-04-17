@@ -41,7 +41,7 @@ struct MoodStatistics {
 UserAccount users[max_users];
 moodEntry moods[maxModdStorage];
 MoodStatistics statistics[12];
-moddstatistics avarage;
+date m[max_users];
 //function declarations
 void logmenu();
 void login();
@@ -125,73 +125,73 @@ void UpdateAllStatistics(moodEntry moods[], int size) {
     }
 }
 void averageMoodlevel(int moodcount,int month) {
-    int currentid=users[currentuser].id;
+    int currentid = users[currentuser].id;
     int happy_sum = 0, sad_sum = 0,
-      calm_sum = 0, stress_sum = 0,
-       angry_sum = 0;
-    float happyave,sadavg,calmave,sressavg,angryave;
+        calm_sum = 0, stress_sum = 0,
+        angry_sum = 0;
+    float happyavg, sadavg, calmavg, stressavg, angryavg;
     for (int i = 0; i < moodcount; i++) {
-        if(moods[i].userid!=currentid){
-            countinue;//neglect other users
+        if (users[i].userid != currentid) {
+            continue;//neglect other users
         }
-        if(moods[i].mounth!=mounth){
-            countinue;//neglect other mounthes
+        if (m[i].month != month) {
+            continue;//neglect other mounthes
         }
         if (moods[i].moodtype == "happy") {
-            happy_sum += moods[i].moodlevel;
-           statistcs[mIdx].happycount++;
+            happy_sum += moods[i].moodLevel;
+            statistics[mIdx].happycount++;
         }
         else if (moods[i].moodtype == "sad") {
-            sad_sum += moods[i].moodllevel;
-             statistcs[mIdx].sadcount++;
+            sad_sum += moods[i].moodLevel;
+            statistics[mIdx].sadcount++;
         }
         else if (moods[i].moodtype == "calm") {
-            calm_sum += moods[i].moodlevel;
-              statistcs[mIdx].calmcount++;
+            calm_sum += moods[i].moodLevel;
+            statistics[mIdx].calmcount++;
         }
         else if (moods[i].moodtype == "stress") {
-            stress_sum += moods[i].moodlevel;
-             statistcs[mIdx]. stresscount++;
+            stress_sum += moods[i].moodLevel;
+            statistics[mIdx].stresscount++;
         }
         else if (moods[i].moodtype == "angry") {
-            angry_sum += moods[i].moodlevel;
-              statistcs[mIdx].angrycount++;
+            angry_sum += moods[i].moodLevel;
+            statistics[mIdx].angrycount++;
         }
     }
-    if ( statistcs[mIdx].happycount > 0){
-        happyavg = (float)happy_sum / statistcs[mIdx].happycount;
-    cout<<"happy avarege= "<<happyave<<endl;
+    if (statistics[mIdx].happycount > 0) {
+        happyavg = (float)happy_sum / statistics[mIdx].happycount;
+        cout << "happy avarege= " << happyavg << endl;
     }
     else {
-        cout<<" No Happy Avgarage For This Month\n";
+        cout << " No Happy Avgarage For This Month\n";
     }
-    if ( statistcs[mIdx].sadcount > 0){
-        sadavg = (float)sad_sum / statistcs[mIdx].sadcount;
-       cout<<"sad avarege= "<<sadave<<endl;
+    if (statistics[mIdx].sadcount > 0) {
+        sadavg = (float)sad_sum / statistics[mIdx].sadcount;
+        cout << "sad avarege= " << sadavg << endl;
     }
-    else{
-         cout<<" No Sad Avgarage For This Month\n";
+    else {
+        cout << " No Sad Avgarage For This Month\n";
     }
-    if ( statistcs[mIdx].calmcount > 0){
-        calmavg = (float)calm_sum / statistcs[mIdx].calmcount;
-       cout<<"calm avarege= "<<calmave<<endl;
+    if (statistics[mIdx].calmcount > 0) {
+        calmavg = (float)calm_sum / statistics[mIdx].calmcount;
+        cout << "calm avarege= " << calmavg << endl;
     }
-    else{
-         cout<<" No Calm Avgarage For This Month\n";
+    else {
+        cout << " No Calm Avgarage For This Month\n";
     }
-    if (statistcs[mIdx].stresscount > 0){
-        stressavg = (float)stress_sum / statistcs[mIdx].stresscount;
-       cout<<"stress avarege= "<<stressave<<endl;
+    if (statistics[mIdx].stresscount > 0) {
+        stressavg = (float)stress_sum / statistics[mIdx].stresscount;
+        cout << "stress avarege= " << stressavg << endl;
     }
-    else{
-         cout<<" No Stress Avgarage For This Month\n";
+    else {
+        cout << " No Stress Avgarage For This Month\n";
     }
-    if (statistcs[mIdx].angrycount > 0){
-        angryavg = angry_sum /  statistcs[mIdx]. angrycount;
-       cout<<"angry avarege= "<<angryave<<endl;
+    if (statistics[mIdx].angrycount > 0) {
+        angryavg = angry_sum / statistics[mIdx].angrycount;
+        cout << "angry avarege= " << angryavg << endl;
     }
-    else{
-         cout<<" No Angry Avgarage For This Month\n";
+    else {
+        cout << " No Angry Avgarage For This Month\n";
     }
 }
 
