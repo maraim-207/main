@@ -85,21 +85,10 @@ void savetofile()
 void AnalyzeMoodFrequency(moodEntry moods[], int size, int month) {
     int mIdx = month - 1;
     statistics[mIdx].TotalEntries = 0;
-    statistics[mIdx].HappyCount = 0;
-    statistics[mIdx].SadCount = 0;
-    statistics[mIdx].AngryCount = 0;
-    statistics[mIdx].StressedCount = 0;
-    statistics[mIdx].CalmCount = 0;
 
     for (int i = 0; i < size; i++) {
         if (moods[i].time.month == month) {
             statistics[mIdx].TotalEntries++;
-            string type = moods[i].moodtype;
-            if (type == "Happy" || type == "happy") statistics[mIdx].HappyCount++;
-            else if (type == "Sad" || type == "sad") statistics[mIdx].SadCount++;
-            else if (type == "Angry" || type == "angry") statistics[mIdx].AngryCount++;
-            else if (type == "Stressed" || type == "stressed") statistics[mIdx].StressedCount++;
-            else if (type == "Calm" || type == "calm") statistics[mIdx].CalmCount++;
         }
     }
 }
