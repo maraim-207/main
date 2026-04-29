@@ -4,10 +4,10 @@
 #include <fstream>
 #include <string>
 #include <cstdlib>
+#define maxMoodStorage 100
 using namespace std;
 int userscount = 0;
 int logentry;
-#define maxModdStorage 100
 int moodCount = 0;
 const int max_users = 10;
 struct UserAccount
@@ -40,7 +40,7 @@ struct MoodStatistics {
 
 UserAccount users[max_users];
 userAccount currentuser;
-moodEntry moods[maxModdStorage];
+moodEntry moods[maxMoodStorage];
 MoodStatistics statistics[12];
 date m[max_users];
 //function declarations
@@ -114,7 +114,7 @@ void UpdateAllStatistics(moodEntry moods[], int size) {
         AnalyzeMoodFrequency(moods, size, m);
     }
 }
-void averageMoodlevel(int moodcount,int month) {
+void averageMoodlevel(int moodcount, int month) {
     int currentid = currentuser.userid;
     int happy_sum = 0, sad_sum = 0,
         calm_sum = 0, stress_sum = 0,
@@ -189,9 +189,9 @@ void averageMoodlevel(int moodcount,int month) {
 void showLogMenu()
 {
     userscount = loadfromfile(); // Reload users each time
-    for (int i = 0; i < userscount; ++i){
+    for (int i = 0; i < userscount; ++i) {
         users[i].userid = i + 1;
-      currentuser.userid=users[i].userid;
+        currentuser.userid = users[i].userid;
     }
 
     while (true) {
@@ -237,7 +237,7 @@ void addMood(moodEntry moods[], int& moodCount)
     cout << "Enter the mood type \n";
     cout << "Happy\tSad\tAngry\tStressed\tcalm\n";
     cin >> moods[moodCount].moodtype;
-    cout << "Enter the mood level\n";
+    cout << "Enter the mood level from (1 - 5)\n";
     cin >> moods[moodCount].moodLevel;
     if (moods[moodCount].moodLevel > 5 || moods[moodCount].moodLevel < 1)
     {
@@ -251,6 +251,54 @@ void addMood(moodEntry moods[], int& moodCount)
     cin >> moods[moodCount].note;
     moodCount++;
 }
+void saveMoodsToFile()
+{
+    ofstream out("inputData.txt");
+    if (out.is_open())
+    {
+        for (int i = 0; i < moodCount; i++)
+        {
+            out << moods[i].time.day << " ";
+            out << moods[i].time.month << " ";
+            out << moods[i].time.year << " ";
+            out << moods[i].moodtype << " ";
+            out << moods[i].moodLevel << " ";
+            out << moods[i].note << endl;
+
+        }
+        out.close();
+        cout << "Data saved successfully";
+    }
+    else
+    {
+        cout << "Error!!";
+    }
+}
+int loadMoodsFromFile(moodEntry moods[])
+{
+    int count = 0;
+    ifstream in("inputData.txt");
+    if (in.is_open())
+    {
+        while (count < maxMoodStorage)
+        {
+            if (!(in >> moods[count].time.day
+                >> moods[count].time.month
+                >> moods[count].time.year
+                >> moods[count].moodtype
+                >> moods[count].moodLevel
+                >> moods[count].note))
+            {
+                break;
+            }
+            getline(in >> ws, moods[count].note);
+            count++;
+        }
+    }
+    in.close();
+    return count;
+}
+
 void preStoredMoods()
 {
     moods[0] = { 1, 4, 2026, 5, "Happy", "Finished my project" };
@@ -308,7 +356,7 @@ void updateFuncion(moodEntry moods[], int moodCount)
             cout << "No entry found for the given date\n";
         else
         {
-            display(moods , indexDateUserUpdate);
+            display(moods, indexDateUserUpdate);
             cout << "Enter the new mood type \n";
             cin >> newMoodtype;
             cout << "Enter the new mood level\n";
@@ -435,7 +483,11 @@ int main()
     SetCurrentConsoleFontEx(hConsole, false, &fontInfo);
 
     showLogMenu();
+    //this function return numbers of arrays loaded 
+    saveMoodsToFile();
+    moodCount = loadMoodsFromFile(moods);
     return 0;
+
 }
 void logmenu()
 {
