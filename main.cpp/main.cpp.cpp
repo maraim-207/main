@@ -94,7 +94,7 @@ void AnalyzeMoodFrequency(moodEntry moods[], int size, int month) {
     }
 }
 
-void AverageMoodlevel(int moodCount, int month,float &happyavg,float &sadavg,float & calmavg,float stressavg,float &angryavg) {
+void AverageMoodlevel(int moodCount, int month, float& happyavg, float& sadavg, float& calmavg, float stressavg, float& angryavg) {
     int currentid = currentuser.userid;
     int happy_sum = 0, sad_sum = 0,
         calm_sum = 0, stress_sum = 0,
@@ -145,7 +145,7 @@ void AverageMoodlevel(int moodCount, int month,float &happyavg,float &sadavg,flo
 }
 
 void DisplayStatistics(int month) {
-    float happyavg=0, sadavg=0, calmavg=0, stressavg=0, angryavg=0;
+    float happyavg = 0, sadavg = 0, calmavg = 0, stressavg = 0, angryavg = 0;
     int mIdx = month - 1;
     if (statistics[mIdx].TotalEntries == 0) {
         cout << "\nNo data for month " << month << endl;
@@ -155,8 +155,8 @@ void DisplayStatistics(int month) {
     cout << "\n--- Statistics Report for Month " << month << " ---" << endl;
     cout << "Total Records: " << statistics[mIdx].TotalEntries << endl;
     cout << "Average Mood Level: ";
-    AverageMoodlevel(moodCount, month, &happyavg, &sadavg, &calmavg, &stressavg, &angryavg);
-      if (statistics[mIdx].HappyCount > 0) {
+    AverageMoodlevel(moodCount, month, happyavg, sadavg, calmavg, stressavg, angryavg);
+    if (statistics[mIdx].HappyCount > 0) {
         cout << "happy avarege= " << happyavg << endl;
     }
     else {
@@ -338,8 +338,8 @@ void display(moodEntry moods[], int moodCount)
             moods[i].time.year == year)
         {
             cout << "\n* Date: " << moods[i].time.day << "/"
-                 << moods[i].time.month << "/"
-                 << moods[i].time.year << endl;
+                << moods[i].time.month << "/"
+                << moods[i].time.year << endl;
 
             cout << "* Mood type: " << moods[i].moodtype << endl;
             cout << "* Mood Level: " << moods[i].moodLevel << endl;
@@ -415,7 +415,7 @@ void Delete(moodEntry moods[], int& moodCount)
         moodEntry m;
 
         while (in >> m.time.day >> m.time.month >> m.time.year
-                  >> m.moodtype >> m.moodLevel)
+            >> m.moodtype >> m.moodLevel)
         {
             getline(in >> ws, m.note);
 
@@ -423,17 +423,17 @@ void Delete(moodEntry moods[], int& moodCount)
                 m.time.month == month &&
                 m.time.year == year)
             {
-                found = true; 
+                found = true;
                 continue;
             }
 
-           
+
             temp << m.time.day << " "
-                 << m.time.month << " "
-                 << m.time.year << " "
-                 << m.moodtype << " "
-                 << m.moodLevel << " "
-                 << m.note << endl;
+                << m.time.month << " "
+                << m.time.year << " "
+                << m.moodtype << " "
+                << m.moodLevel << " "
+                << m.note << endl;
         }
 
         in.close();
@@ -442,7 +442,7 @@ void Delete(moodEntry moods[], int& moodCount)
         remove("inputData.txt");
         rename("temp.txt", "inputData.txt");
 
-        
+
         moodCount = loadMoodsFromFile(moods);
 
         if (found)
@@ -548,7 +548,6 @@ void SearchMood() {
 // Log menu loop function
 void showLogMenu()
 {
-    userscount = loadfromfile(); // Reload users each time
     for (int i = 0; i < userscount; ++i)
         users[i].userid = i + 1;
 
@@ -597,10 +596,11 @@ int main()
     wcscpy_s(fontInfo.FaceName, L"Consolas");
     SetCurrentConsoleFontEx(hConsole, false, &fontInfo);
 
-    showLogMenu();
-    //this function return numbers of arrays loaded 
-    saveMoodsToFile();
+    userscount = loadfromfile();
     moodCount = loadMoodsFromFile(moods);
+
+    showLogMenu();
+   
     return 0;
 
 }
@@ -668,7 +668,7 @@ void login()
 
         if (loginSuccess)
         {
-            mainmenu();
+            return;
         }
         else
         {
