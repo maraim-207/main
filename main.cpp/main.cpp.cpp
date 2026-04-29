@@ -401,20 +401,59 @@ void updateFuncion(moodEntry moods[], int moodCount)
 
 void Delete(moodEntry moods[], int& moodCount)
 {
-    cout << "Enter the date you want to delete";
-    cout << endl;
-    cin >> moods[moodCount].time.day; cout << "/"; cin >> moods[moodCount].time.month; cout << "/"; cin >> moods[moodCount].time.year;
+    int day, month, year;
+    cout << "Enter date to delete (day month year): ";
+    cin >> day >> month >> year;
 
+    ifstream in("inputData.txt");
+    ofstream temp("temp.txt");
 
-    if (moods[moodCount].time.day == moods[moodCount].time.day && moods[moodCount].time.month == moods[moodCount].time.month && moods[moodCount].time.year == moods[moodCount].time.year)
+    bool found = false;
+
+    if (in.is_open() && temp.is_open())
     {
-        moods[moodCount].moodLevel = 0;
-        moods[moodCount].moodtype = {};
-        moods[moodCount].note = {};
+        moodEntry m;
+
+        while (in >> m.time.day >> m.time.month >> m.time.year
+                  >> m.moodtype >> m.moodLevel)
+        {
+            getline(in >> ws, m.note);
+
+            if (m.time.day == day &&
+                m.time.month == month &&
+                m.time.year == year)
+            {
+                found = true; 
+                continue;
+            }
+
+           
+            temp << m.time.day << " "
+                 << m.time.month << " "
+                 << m.time.year << " "
+                 << m.moodtype << " "
+                 << m.moodLevel << " "
+                 << m.note << endl;
+        }
+
+        in.close();
+        temp.close();
+
+        remove("inputData.txt");
+        rename("temp.txt", "inputData.txt");
+
+        
+        moodCount = loadMoodsFromFile(moods);
+
+        if (found)
+            cout << "Deleted successfully\n";
+        else
+            cout << "Date not found\n";
     }
     else
-        cout << "invalid date!";
-
+    {
+        cout << "File error!\n";
+    }
 }
 //function declarations
 void logmenu();
