@@ -105,7 +105,7 @@ void DisplayStatistics(int month) {
     cout << "Happy: " << statistics[mIdx].HappyCount << " | Sad: " << statistics[mIdx].SadCount << endl;
     cout << "Angry: " << statistics[mIdx].AngryCount << " | Stressed: " << statistics[mIdx].StressedCount << endl;
     cout << "Calm: " << statistics[mIdx].CalmCount << endl;
-    cout << "Average Mood Level: " << AverageMoodlevel() << " / 5" << endl;
+    cout << "Average Mood Level: " << AverageMoodlevel(moodcount,month) << " / 5" << endl;
     system("pause");
 }
 
