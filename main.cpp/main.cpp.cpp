@@ -94,13 +94,12 @@ void AnalyzeMoodFrequency(moodEntry moods[], int size, int month) {
     }
 }
 
-void AverageMoodlevel(int moodcount, int month) {
+void AverageMoodlevel(int moodCount, int month,float &happyavg,float &sadavg,float & calmavg,float stressavg,float &angryavg) {
     int currentid = currentuser.userid;
     int happy_sum = 0, sad_sum = 0,
         calm_sum = 0, stress_sum = 0,
         angry_sum = 0;
-    float happyavg, sadavg, calmavg, stressavg, angryavg;
-    for (int i = 0; i < moodcount; i++) {
+    for (int i = 0; i < moodCount; i++) {
         if (users[i].userid != currentid) {
             continue;//neglect other users
         }
@@ -130,42 +129,23 @@ void AverageMoodlevel(int moodcount, int month) {
     }
     if (statistics[mIdx].HappyCount > 0) {
         happyavg = (float)happy_sum / statistics[mIdx].HappyCount;
-        cout << "happy avarege= " << happyavg << endl;
-    }
-    else {
-        cout << " No Happy Avgarage For This Month\n";
     }
     if (statistics[mIdx].SadCount > 0) {
         sadavg = (float)sad_sum / statistics[mIdx].SadCount;
-        cout << "sad avarege= " << sadavg << endl;
-    }
-    else {
-        cout << " No Sad Avgarage For This Month\n";
     }
     if (statistics[mIdx].CalmCount > 0) {
         calmavg = (float)calm_sum / statistics[mIdx].CalmCount;
-        cout << "calm avarege= " << calmavg << endl;
-    }
-    else {
-        cout << " No Calm Avgarage For This Month\n";
     }
     if (statistics[mIdx].StressedCount > 0) {
         stressavg = (float)stress_sum / statistics[mIdx].StressedCount;
-        cout << "stress avarege= " << stressavg << endl;
-    }
-    else {
-        cout << " No Stress Avgarage For This Month\n";
     }
     if (statistics[mIdx].AngryCount > 0) {
         angryavg = (float)angry_sum / statistics[mIdx].AngryCount;
-        cout << "angry avarege= " << angryavg << endl;
-    }
-    else {
-        cout << " No Angry Avgarage For This Month\n";
     }
 }
 
 void DisplayStatistics(int month) {
+    float happyavg=0, sadavg=0, calmavg=0, stressavg=0, angryavg=0;
     int mIdx = month - 1;
     if (statistics[mIdx].TotalEntries == 0) {
         cout << "\nNo data for month " << month << endl;
@@ -174,11 +154,38 @@ void DisplayStatistics(int month) {
     }
     cout << "\n--- Statistics Report for Month " << month << " ---" << endl;
     cout << "Total Records: " << statistics[mIdx].TotalEntries << endl;
-    cout << "Happy: " << statistics[mIdx].HappyCount << " | Sad: " << statistics[mIdx].SadCount << endl;
-    cout << "Angry: " << statistics[mIdx].AngryCount << " | Stressed: " << statistics[mIdx].StressedCount << endl;
-    cout << "Calm: " << statistics[mIdx].CalmCount << endl;
     cout << "Average Mood Level: ";
-    AverageMoodlevel(moodCount, month);
+    AverageMoodlevel(moodCount, month, &happyavg, &sadavg, &calmavg, &stressavg, &angryavg);
+      if (statistics[mIdx].HappyCount > 0) {
+        cout << "happy avarege= " << happyavg << endl;
+    }
+    else {
+        cout << " No Happy Avgarage For This Month\n";
+    }
+    if (statistics[mIdx].SadCount > 0) {
+        cout << "sad avarege= " << sadavg << endl;
+    }
+    else {
+        cout << " No Sad Avgarage For This Month\n";
+    }
+    if (statistics[mIdx].CalmCount > 0) {
+        cout << "calm avarege= " << calmavg << endl;
+    }
+    else {
+        cout << " No Calm Avgarage For This Month\n";
+    }
+    if (statistics[mIdx].StressedCount > 0) {
+        cout << "stress avarege= " << stressavg << endl;
+    }
+    else {
+        cout << " No Stress Avgarage For This Month\n";
+    }
+    if (statistics[mIdx].AngryCount > 0) {
+        cout << "angry avarege= " << angryavg << endl;
+    }
+    else {
+        cout << " No Angry Avgarage For This Month\n";
+    }
     cout << " / 5" << endl;
     system("pause");
 }
