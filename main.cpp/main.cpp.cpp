@@ -323,20 +323,34 @@ void preStoredMoods()
     moods[7] = { 8, 4, 2026, 5, "Calm", "Normal day" };
     moods[8] = { 9, 4, 2026, 2, "happy", "a new semister comming up" };
 }
-void display(moodEntry moods[], int& moodCount)
+void display(moodEntry moods[], int moodCount)
 {
-    cout << "enter the date you want to delete :" << endl;
-    if (moods[moodCount].time.day == moods[moodCount].time.day && moods[moodCount].time.month == moods[moodCount].time.month && moods[moodCount].time.year == moods[moodCount].time.year)
+    int day, month, year;
+    bool found = false;
+
+    cout << "Enter date to display (day month year): ";
+    cin >> day >> month >> year;
+
+    for (int i = 0; i < moodCount; i++)
     {
+        if (moods[i].time.day == day &&
+            moods[i].time.month == month &&
+            moods[i].time.year == year)
+        {
+            cout << "\n* Date: " << moods[i].time.day << "/"
+                 << moods[i].time.month << "/"
+                 << moods[i].time.year << endl;
 
-        cout << "* Date: " << moods[moodCount].time.day << "/" << moods[moodCount].time.month << "/" << moods[moodCount].time.year << endl;
-        cout << "* Mood type :) " << moods[moodCount].moodtype << endl;
-        cout << "* Mood Level *_* : " << moods[moodCount].moodLevel << endl;
-        cout << "* Notes ^_-: " << moods[moodCount].note << endl;
+            cout << "* Mood type: " << moods[i].moodtype << endl;
+            cout << "* Mood Level: " << moods[i].moodLevel << endl;
+            cout << "* Note: " << moods[i].note << endl;
+
+            found = true;
+        }
     }
-    else
-        cout << "invalid date!";
 
+    if (!found)
+        cout << "No data found for this date\n";
 }
 void updateFuncion(moodEntry moods[], int moodCount)
 {
