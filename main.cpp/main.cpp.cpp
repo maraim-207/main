@@ -188,56 +188,7 @@ void UpdateAllStatistics(moodEntry moods[], int size) {
         AnalyzeMoodFrequency(moods, size, m);
     }
 }
-void SearchByDate(MoodEntry moods[], int moodcount) {
-	int day, month, year;
-	bool found = false;
 
-	cout << "Enter the day:";
-	cin >> day;
-	cout << endl << "Enter the month:";
-	cin >> month;
-	cout << endl << "Enter the year:";
-	cin >> year;
-	for (int i = 0; i < moodcount; i++)
-		if (moods[i].day == day && moods[i].month == month && moods[i].year == year) {
-			cout << "Date:" << moods[i].day << "/" << moods[i].month << "/" << moods[i].year << endl
-				<< moods[i].type << endl << moods[i].level << endl << moods[i].note;
-			found = true;
-		}
-	if (!found)
-		cout << "No mood found on this date." << endl;
-}
-
-
-void SearchByType(MoodEntry moods[], int moodcount) {
-	string type;
-	bool found = false;
-
-	cout << "Enter the type of mood:";
-	cin >> type;
-
-	  for (int i = 0; i < moodcount; i++)
-		  if (moods[i].type == type) {
-			cout << "Date:" << moods[i].day << "/" << moods[i].month << "/" << moods[i].year << endl
-				<< moods[i].type << endl << moods[i].level << endl << moods[i].note;
-			found = true;
-		  }
-	if (!found)
-		cout << "No mood found on with this type." << endl;
-}
-
-
-void SearchMood() {
-	int choise;
-	cout << "ENTER 1 to search by date." << endl << "ENTER 2 to search by mood type";
-	cin >> choise;
-	if (choise == 1)
-		SearchByDate( moods , moodcount);
-	else if (choise == 2)
-		SearchByType( moods , moodcount);
-	else
-		cout << "invalid choise!" << endl;
-}
 
 // Log menu loop function
 void showLogMenu()
@@ -483,6 +434,56 @@ void savetofile()
         outfile.close();
     }
 }
+void SearchByDate(moodEntry moods[], int moodCount) {
+    int day, month, year;
+    bool found = false;
+
+    cout << "Enter the day:";
+    cin >> day;
+    cout << endl << "Enter the month:";
+    cin >> month;
+    cout << endl << "Enter the year:";
+    cin >> year;
+    for (int i = 0; i < moodCount; i++)
+        if (moods[i].time.day == day && moods[i].time.month == month && moods[i].time.year == year) {
+            cout << "Date:" << moods[i].time.day << "/" << moods[i].time.month << "/" << moods[i].time.year << endl
+                << moods[i].moodtype << endl << moods[i].moodLevel << endl << moods[i].note;
+            found = true;
+        }
+    if (!found)
+        cout << "No mood found on this date." << endl;
+}
+
+
+void SearchByType(moodEntry moods[], int moodCount) {
+    string type;
+    bool found = false;
+
+    cout << "Enter the type of mood:";
+    cin >> type;
+
+    for (int i = 0; i < moodCount; i++)
+        if (moods[i].moodtype == type) {
+            cout << "Date:" << moods[i].time.day << "/" << moods[i].time.month << "/" << moods[i].time.year << endl
+                << moods[i].moodtype << endl << moods[i].moodLevel << endl << moods[i].note;
+            found = true;
+        }
+    if (!found)
+        cout << "No mood found on with this type." << endl;
+}
+
+
+void SearchMood() {
+    int choise;
+    cout << "ENTER 1 to search by date." << endl << "ENTER 2 to search by mood type";
+    cin >> choise;
+    if (choise == 1)
+        SearchByDate(moods, moodCount);
+    else if (choise == 2)
+        SearchByType(moods, moodCount);
+    else
+        cout << "invalid choise!" << endl;
+}
 
 // Log menu loop function
 void showLogMenu()
@@ -684,7 +685,6 @@ void signup()
 
     if (userscount < max_users)
     {
-        int entry3;
         cout << "╔═════════════════════════════════════════╗\n";
         cout << "║                Sign up📝                ║\n";
         cout << "╠═════════════════════════════════════════╣\n";
