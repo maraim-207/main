@@ -788,7 +788,7 @@ void AverageMoodlevel(int& moodCount, int month, float& happyavg, float& sadavg,
         if (users[i].userid != currentid) {
             continue;//neglect other users
         }
-        if (m[i].month != month) {
+        if (moods[i].time.month != month) {
             continue;//neglect other mounthes
         }
         if (moods[i].moodtype == "happy") {
