@@ -1,3 +1,4 @@
+
 #include<iostream>
 #include <windows.h>
 #include <cstring>
@@ -83,7 +84,7 @@ int main() {
     SearchByDate(moods, moodCount);
     SearchByType(moods, moodCount);
     SearchMood();
-    
+
     int targetmonth;
     cout << "\n=============================================" << endl;
     cout << "Enter the month to show statistics:";
@@ -495,7 +496,7 @@ void preStoredMoods()
     moods[8] = { 9, 4, 2026, 2, "happy", "a new semister comming up" };
 }
 
-void addMood(moodEntry moods, int& moodCount)
+void addMood(moodEntry moods[], int& moodCount)
 {
     cout << "Enter the day\n";
     cin >> moods[moodCount].time.day;
@@ -512,7 +513,17 @@ void addMood(moodEntry moods, int& moodCount)
     {
         do
         {
-            cout << "wrong input please enter a number between 1 and 5\n";
+            system("cls");
+            cout << "╔════════════════════════════════════╗\n";
+            cout << "║           Invalid Entry!           ║\n";
+            cout << "╠════════════════════════════════════╣\n";
+            cout << "║                                    ║\n";
+            cout << "║      Enter Digits from 1 to 5      ║\n";
+            cout << "║                                    ║\n";
+            cout << "╚════════════════════════════════════╝\n";
+            cin.clear();
+            cin.ignore(10000, '\n');
+            system("timeout /t 4 > nul");
             cin >> moods[moodCount].moodLevel;
         } while (moods[moodCount].moodLevel > 5 || moods[moodCount].moodLevel < 1);
     }
@@ -545,6 +556,7 @@ void saveMoodsToFile()
     }
 }
 
+
 void updateFuncion(moodEntry moods[], int& moodCount)
 {
     int indexDateUserUpdate = -1;
@@ -554,53 +566,95 @@ void updateFuncion(moodEntry moods[], int& moodCount)
     string newMoodtype;
     int newMoodLevel;
     string newNote;
-    do {
 
+    do {
         cout << "Enter day / month / year to update mood entry\n";
         cin >> searchDay >> searchMonth >> searchYear;
 
+
+
         for (int i = 0; i < moodCount; i++)
         {
-            if (moods[i].time.day == searchDay && moods[i].time.month == searchMonth && moods[i].time.year == searchYear)
+            if (moods[i].time.day == searchDay
+                && moods[i].time.month == searchMonth &&
+                moods[i].time.year == searchYear)
             {
                 indexDateUserUpdate = i;
                 break;
             }
-
         }
 
 
 
         if (indexDateUserUpdate == -1)
-            cout << "No entry found for the given date\n";
+        {
+            system("cls");
+            cout << "╔════════════════════════════════════╗\n";
+            cout << "║           Invalid Entry!           ║\n";
+            cout << "╠════════════════════════════════════╣\n";
+            cout << "║                                    ║\n";
+            cout << "║         Please try again...        ║\n";
+            cout << "║                                    ║\n";
+            cout << "╚════════════════════════════════════╝\n";
+            cin.clear();
+            cin.ignore(10000, '\n');
+            system("timeout 4 > nul");
+        }
+
+
         else
         {
-            display(moods, indexDateUserUpdate);
-            cout << "Enter the new mood type \n";
+            system("cls");
+            cout << "╔════════════════════════════════════╗\n";
+            cout << "║         Current Mood Entry         ║\n";
+            cout << "╠════════════════════════════════════╣\n";
+            cout << "║ Date: " << moods[indexDateUserUpdate].time.day << "/"
+                << moods[indexDateUserUpdate].time.month << "/"
+                << moods[indexDateUserUpdate].time.year << "\n";
+            cout << "║ Mood Type:  " << moods[indexDateUserUpdate].moodtype << "\n";
+            cout << "║ Mood Level: " << moods[indexDateUserUpdate].moodLevel << "\n";
+            cout << "║ Note:       " << moods[indexDateUserUpdate].note << "\n";
+            cout << "╚════════════════════════════════════╝\n";
+
+            cout << "\nEnter the new mood type\n";
             cin >> newMoodtype;
             cout << "Enter the new mood level\n";
             cin >> newMoodLevel;
             cout << "Enter the new note\n";
-            cin >> newNote;
+            cin.ignore();
+            getline(cin, newNote);
+
+
+
             moods[indexDateUserUpdate].moodtype = newMoodtype;
             moods[indexDateUserUpdate].moodLevel = newMoodLevel;
             moods[indexDateUserUpdate].note = newNote;
         }
     } while (indexDateUserUpdate == -1);
 
-    display(moods, indexDateUserUpdate);
-
+    system("cls");
+    cout << "╔════════════════════════════════════╗\n";
+    cout << "║       Updated Successfully!        ║\n";
+    cout << "╠════════════════════════════════════╣\n";
+    cout << "║ Date: " << moods[indexDateUserUpdate].time.day << "/"
+        << moods[indexDateUserUpdate].time.month << "/"
+        << moods[indexDateUserUpdate].time.year << "\n";
+    cout << "║ Mood Type:  " << moods[indexDateUserUpdate].moodtype << "\n";
+    cout << "║ Mood Level: " << moods[indexDateUserUpdate].moodLevel << "\n";
+    cout << "║ Note:       " << moods[indexDateUserUpdate].note << "\n";
+    cout << "╚════════════════════════════════════╝\n";
+    system("timeout 4 > nul");
 }
 
 void Delete(moodEntry moods[], int& moodCount)
 {
-   
+
     system("timeout /t 4 > nul");
     int day, month, year;
     system("cls");
     cout << "╔════════════════════════════════════╗\n";
     cout << "║  Enter the date to delete          ║\n";
-    cout << "╠════════════════════════════════════╣\n";                                  
+    cout << "╠════════════════════════════════════╣\n";
 
     cin >> day >> month >> year;
 
@@ -651,16 +705,16 @@ void Delete(moodEntry moods[], int& moodCount)
             cout << endl;
         }
         else
-        { 
+        {
             system("cls");
-        cout << "╔════════════════════════════════════╗\n";
-        cout << "║           Invalid Entry!           ║\n";
-        cout << "╠════════════════════════════════════╣\n";
-        cout << "║                                    ║\n";
-        cout << "║      Date not found...             ║\n";
-        cout << "║                                    ║\n";
-        cout << "╚════════════════════════════════════╝\n";
-            }
+            cout << "╔════════════════════════════════════╗\n";
+            cout << "║           Invalid Entry!           ║\n";
+            cout << "╠════════════════════════════════════╣\n";
+            cout << "║                                    ║\n";
+            cout << "║      Date not found...             ║\n";
+            cout << "║                                    ║\n";
+            cout << "╚════════════════════════════════════╝\n";
+        }
     }
     else
     {
