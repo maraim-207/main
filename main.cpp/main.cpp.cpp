@@ -595,8 +595,14 @@ void updateFuncion(moodEntry moods[], int& moodCount)
 
 void Delete(moodEntry moods[], int& moodCount)
 {
+   
+    system("timeout /t 4 > nul");
     int day, month, year;
-    cout << "Enter date to delete (day month year): ";
+    system("cls");
+    cout << "╔════════════════════════════════════╗\n";
+    cout << "║  Enter the date to delete          ║\n";
+    cout << "╠════════════════════════════════════╣\n";                                  
+
     cin >> day >> month >> year;
 
     ifstream in("inputData.txt");
@@ -620,8 +626,6 @@ void Delete(moodEntry moods[], int& moodCount)
                 found = true;
                 continue;
             }
-
-
             temp << m.time.day << " "
                 << m.time.month << " "
                 << m.time.year << " "
@@ -640,24 +644,44 @@ void Delete(moodEntry moods[], int& moodCount)
         moodCount = loadMoodsFromFile(moods);
 
         if (found)
-            cout << "Deleted successfully\n";
+        {
+            system("cls");
+            cout << "╔════════════════════════════════════╗\n";
+            cout << "║      Deleted successfully          ║\n";
+            cout << "╠════════════════════════════════════╣\n";
+            cout << endl;
+        }
         else
-            cout << "Date not found\n";
+        { 
+            system("cls");
+        cout << "╔════════════════════════════════════╗\n";
+        cout << "║           Invalid Entry!           ║\n";
+        cout << "╠════════════════════════════════════╣\n";
+        cout << "║                                    ║\n";
+        cout << "║      Date not found...             ║\n";
+        cout << "║                                    ║\n";
+        cout << "╚════════════════════════════════════╝\n";
+            }
     }
     else
     {
-        cout << "File error!\n";
+        system("cls");
+        cout << "╔════════════════════════════════════╗\n";
+        cout << "║         *_*    File error!         ║\n";
+        cout << "╠════════════════════════════════════╣\n";
+        cout << endl;
     }
 }
 
-
-
-void display(moodEntry moods[], int& moodCount)
+void display(moodEntry moods[], int moodCount)
 {
     int day, month, year;
     bool found = false;
 
-    cout << "Enter date to display (day month year): ";
+    system("cls");
+    cout << "╔════════════════════════════════════╗\n";
+    cout << "║     Enter date to display          ║\n";
+    cout << "╠════════════════════════════════════╣\n";
     cin >> day >> month >> year;
 
     for (int i = 0; i < moodCount; i++)
@@ -677,11 +701,14 @@ void display(moodEntry moods[], int& moodCount)
             found = true;
         }
     }
-
     if (!found)
-        cout << "No data found for this date\n";
+    {
+        system("cls");
+        cout << "╔════════════════════════════════════╗\n";
+        cout << "║    No data found for this date!    ║\n";
+        cout << "╠════════════════════════════════════╣\n";
+    }
 }
-
 
 
 void SearchByDate(moodEntry moods[], int& moodCount) {
