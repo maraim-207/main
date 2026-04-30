@@ -51,7 +51,7 @@ int loadfromfile();
 void showLogMenu();
 void logmenu();
 void signup();
-void login();
+bool login();
 void closing();
 void savetofile();
 void addMood(moodEntry moods[], int&);
@@ -71,7 +71,9 @@ void UpdateAllStatistics(moodEntry moods[], int moodCount);
 
 
 
-int main() {
+int main()
+{
+    
     showLogMenu();
     savetofile();
     preStoredMoods();
@@ -292,7 +294,7 @@ void signup()
     }
 }
 
-void login()
+bool login()
 {
     system("cls");
     int entry1;
