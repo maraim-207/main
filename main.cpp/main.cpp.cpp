@@ -895,28 +895,30 @@ void updateFuncion(moodEntry moods[], int& moodCount)
 //Delete moods function
 void Delete(moodEntry moods[], int& moodCount)
 {
-    system("cls");
-    cout << "╔════════════════════════════════════╗\n";
-    cout << "║         🗑️ Delete Mood Entry       ║\n";
-    cout << "╠════════════════════════════════════╣\n";
-    cout << "║  Enter date to delete (DD MM YYYY):║\n";
-    cout << "╚════════════════════════════════════╝\n\n";
-
     int day, month, year;
-    cout << "📅 Date: ";
-    cin >> day >> month >> year;
-
     bool found = false;
-    int deleteIndex = -1;
 
-    // البحث عن المدخل في المصفوفة
+    system("cls");
+    cout << "╔══════════════════════════════════════════════╗\n";
+    cout << "║        🗑️ Delete Mood Entry by Date         ║\n";
+    cout << "╠══════════════════════════════════════════════╣\n";
+    cout << "║  📅 Enter Day   : "; cin >> day;
+    cout << "║  📅 Enter Month : "; cin >> month;
+    cout << "║  📅 Enter Year  : "; cin >> year;
+    cout << "╠══════════════════════════════════════════════╣\n";
+
     for (int i = 0; i < moodCount; i++)
     {
         if (moods[i].time.day == day &&
             moods[i].time.month == month &&
             moods[i].time.year == year)
         {
-            deleteIndex = i;
+            for (int j = i; j < moodCount - 1; j++)
+            {
+                moods[j] = moods[j + 1];
+            }
+
+            moodCount--;
             found = true;
             break;
         }
@@ -924,51 +926,16 @@ void Delete(moodEntry moods[], int& moodCount)
 
     if (found)
     {
-        // عرض المدخل قبل الحذف للتأكيد
-        cout << "\n╔════════════════════════════════════╗\n";
-        cout << "║     Entry to be deleted:           ║\n";
-        cout << "╠════════════════════════════════════╣\n";
-        cout << "║ Date: " << moods[deleteIndex].time.day << "/"
-            << moods[deleteIndex].time.month << "/"
-            << moods[deleteIndex].time.year << "\n";
-        cout << "║ Mood Type:  " << moods[deleteIndex].moodtype << "\n";
-        cout << "║ Mood Level: " << moods[deleteIndex].moodLevel << "\n";
-        cout << "║ Note:       " << moods[deleteIndex].note << "\n";
-        cout << "╚════════════════════════════════════╝\n";
-
-        cout << "\nAre you sure you want to delete this entry? (1 for Yes / 2 for No): ";
-        int confirm;
-        cin >> confirm;
-
-        if (confirm == 1)
-        {
-            // حذف من المصفوفة عن طريق إزاحة العناصر
-            for (int i = deleteIndex; i < moodCount - 1; i++)
-            {
-                moods[i] = moods[i + 1];
-            }
-            moodCount--;  // تقليل العدد الكلي
-
-            cout << "\n╔════════════════════════════════════╗\n";
-            cout << "║      ✅ Deleted successfully!       ║\n";
-            cout << "╚════════════════════════════════════╝\n";
-        }
-        else
-        {
-            cout << "\n╔════════════════════════════════════╗\n";
-            cout << "║      ❌ Deletion cancelled.         ║\n";
-            cout << "╚════════════════════════════════════╝\n";
-        }
+        cout << "║      ✅ Mood deleted successfully!          ║\n";
+        cout << "║      💡 Stay positive & keep tracking!     ║\n";
     }
     else
     {
-        cout << "\n╔════════════════════════════════════╗\n";
-        cout << "║           ❌ Not Found!             ║\n";
-        cout << "╠════════════════════════════════════╣\n";
-        cout << "║      No mood entry found on        ║\n";
-        cout << "║      this date...                  ║\n";
-        cout << "╚════════════════════════════════════╝\n";
+        cout << "║      ❌ Date not found! Try again...        ║\n";
+        cout << "║      🔍 Make sure the date is correct      ║\n";
     }
+
+    cout << "╚══════════════════════════════════════════════╝\n";
 
     system("pause");
 }
