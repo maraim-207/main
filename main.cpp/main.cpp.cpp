@@ -71,7 +71,6 @@ void UpdateAllStatistics(moodEntry moods[], int moodCount);
 
 
 int main() {
-    logmenu();
     showLogMenu();
     savetofile();
     preStoredMoods();
@@ -673,7 +672,7 @@ void Delete(moodEntry moods[], int& moodCount)
     }
 }
 
-void display(moodEntry moods[], int moodCount)
+void display(moodEntry moods[], int& moodCount)
 {
     int day, month, year;
     bool found = false;
