@@ -7,7 +7,7 @@
 #define maxMoodStorage 100
 #define max_users 10
 using namespace std;
-int userscount = 0, moodCount = 0 ,logentry;
+int userscount = 0, moodCount = 0, logentry;
 
 struct UserAccount
 {
@@ -53,20 +53,20 @@ void signup();
 void login();
 void closing();
 void savetofile();
-void addMood(moodEntry moods[], int& );
+void addMood(moodEntry moods[], int&);
 void saveMoodsToFile();
 int loadMoodsFromFile(moodEntry moods[]);
 void preStoredMoods();
-void updateFuncion(moodEntry moods[], int &);
-void Delete(moodEntry moods[], int & );
-void display(moodEntry moods[], int &);
-void SearchByDate(moodEntry moods[], int & );
-void SearchByType(moodEntry moods[], int & );
+void updateFuncion(moodEntry moods[], int&);
+void Delete(moodEntry moods[], int&);
+void display(moodEntry moods[], int&);
+void SearchByDate(moodEntry moods[], int&);
+void SearchByType(moodEntry moods[], int&);
 void SearchMood();
-void AnalyzeMoodFrequency(moodEntry moods[], int , int );
-void AverageMoodlevel(int &, int , float& , float& , float& , float &, float& );
-void DisplayStatistics(int );
-void UpdateAllStatistics(moodEntry moods, int );
+void AnalyzeMoodFrequency(moodEntry moods[], int, int);
+void AverageMoodlevel(int&, int, float&, float&, float&, float&, float&);
+void DisplayStatistics(int);
+void UpdateAllStatistics(moodEntry moods[], int moodCount);
 
 
 
@@ -74,18 +74,25 @@ int main() {
     logmenu();
     showLogMenu();
     savetofile();
-     preStoredMoods();
-   moodCount= loadMoodsFromFile(moods);
-    addMood( moods,moodCount);
+    preStoredMoods();
+    moodCount = loadMoodsFromFile(moods);
+    addMood(moods, moodCount);
     saveMoodsToFile();
-    updateFuncion( moods,  moodCount);
-    Delete( moods, moodCount);
-    display( moods, moodCount);
-    SearchByDate( moods, moodCount);
+    updateFuncion(moods, moodCount);
+    Delete(moods, moodCount);
+    display(moods, moodCount);
+    SearchByDate(moods, moodCount);
     SearchByType(moods, moodCount);
     SearchMood();
-    UpdateAllStatistics(moods,  size);
-    DisplayStatistics( month);
+    
+    int targetmonth;
+    cout << "\n=============================================" << endl;
+    cout << "Enter the month to show statistics:";
+    cin >> targetmonth;
+
+    UpdateAllStatistics(moods, moodCount);
+    DisplayStatistics(targetmonth);
+    return 0;
 }
 
 int loadfromfile()
@@ -412,28 +419,28 @@ void showLogMenu()
 
         switch (logentry)
         {
-            case 1:
-                login();
-                break;
-            case 2:
-                signup();
-                break;
-            case 3:
-                closing();
-                break;
-            default:
-                system("cls");
-                cout << "╔════════════════════════════════════╗\n";
-                cout << "║           Invalid Entry!           ║\n";
-                cout << "╠════════════════════════════════════╣\n";
-                cout << "║                                    ║\n";
-                cout << "║         Please try again...        ║\n";
-                cout << "║                                    ║\n";
-                cout << "╚════════════════════════════════════╝\n";
-                cin.clear();
-                cin.ignore(10000, '\n');
-                system("timeout /t 4 > nul");
-                continue;
+        case 1:
+            login();
+            break;
+        case 2:
+            signup();
+            break;
+        case 3:
+            closing();
+            break;
+        default:
+            system("cls");
+            cout << "╔════════════════════════════════════╗\n";
+            cout << "║           Invalid Entry!           ║\n";
+            cout << "╠════════════════════════════════════╣\n";
+            cout << "║                                    ║\n";
+            cout << "║         Please try again...        ║\n";
+            cout << "║                                    ║\n";
+            cout << "╚════════════════════════════════════╝\n";
+            cin.clear();
+            cin.ignore(10000, '\n');
+            system("timeout /t 4 > nul");
+            continue;
         }
     }
 }
@@ -645,7 +652,7 @@ void Delete(moodEntry moods[], int& moodCount)
 
 
 
-void display(moodEntry moods[], int &moodCount)
+void display(moodEntry moods[], int& moodCount)
 {
     int day, month, year;
     bool found = false;
@@ -677,7 +684,7 @@ void display(moodEntry moods[], int &moodCount)
 
 
 
-void SearchByDate(moodEntry moods[], int &moodCount) {
+void SearchByDate(moodEntry moods[], int& moodCount) {
     int day, month, year;
     bool found = false;
 
@@ -697,7 +704,7 @@ void SearchByDate(moodEntry moods[], int &moodCount) {
         cout << "No mood found on this date." << endl;
 }
 
-void SearchByType(moodEntry moods[], int &moodCount) {
+void SearchByType(moodEntry moods[], int& moodCount) {
     string type;
     bool found = false;
 
@@ -728,19 +735,24 @@ void SearchMood() {
 
 
 
-int mIndex;
-void AnalyzeMoodFrequency(moodEntry moods[], int size, int month){
-    mIndex = month - 1;
-    statistics[mIndex].TotalEntries = 0;
+int monthindex;
+void AnalyzeMoodFrequency(moodEntry moods[], int size, int month) {
+    monthindex = month - 1;
+    statistics[monthindex].TotalEntries = 0;
+    statistics[monthindex].HappyCount = 0;
+    statistics[monthindex].SadCount = 0;
+    statistics[monthindex].AngryCount = 0;
+    statistics[monthindex].StressedCount = 0;
+    statistics[monthindex].CalmCount = 0;
 
     for (int i = 0; i < size; i++) {
         if (moods[i].time.month == month) {
-            statistics[mIndex].TotalEntries++;
+            statistics[monthindex].TotalEntries++;
         }
     }
 }
 
-void AverageMoodlevel(int &moodCount, int month, float& happyavg, float& sadavg, float& calmavg, float& stressavg, float& angryavg) {
+void AverageMoodlevel(int& moodCount, int month, float& happyavg, float& sadavg, float& calmavg, float& stressavg, float& angryavg) {
     int currentid = currentuser.userid;
     int happy_sum = 0, sad_sum = 0,
         calm_sum = 0, stress_sum = 0,
@@ -754,79 +766,79 @@ void AverageMoodlevel(int &moodCount, int month, float& happyavg, float& sadavg,
         }
         if (moods[i].moodtype == "happy") {
             happy_sum += moods[i].moodLevel;
-            statistics[mIndex].HappyCount++;
+            statistics[monthindex].HappyCount++;
         }
         else if (moods[i].moodtype == "sad") {
             sad_sum += moods[i].moodLevel;
-            statistics[mIndex].SadCount++;
+            statistics[monthindex].SadCount++;
         }
         else if (moods[i].moodtype == "calm") {
             calm_sum += moods[i].moodLevel;
-            statistics[mIndex].CalmCount++;
+            statistics[monthindex].CalmCount++;
         }
         else if (moods[i].moodtype == "stress") {
             stress_sum += moods[i].moodLevel;
-            statistics[mIndex].StressedCount++;
+            statistics[monthindex].StressedCount++;
         }
         else if (moods[i].moodtype == "angry") {
             angry_sum += moods[i].moodLevel;
-            statistics[mIndex].AngryCount++;
+            statistics[monthindex].AngryCount++;
         }
     }
-    if (statistics[mIndex].HappyCount > 0) {
-        happyavg = (float)happy_sum / statistics[mIndex].HappyCount;
+    if (statistics[monthindex].HappyCount > 0) {
+        happyavg = (float)happy_sum / statistics[monthindex].HappyCount;
     }
-    if (statistics[mIndex].SadCount > 0) {
-        sadavg = (float)sad_sum / statistics[mIndex].SadCount;
+    if (statistics[monthindex].SadCount > 0) {
+        sadavg = (float)sad_sum / statistics[monthindex].SadCount;
     }
-    if (statistics[mIndex].CalmCount > 0) {
-        calmavg = (float)calm_sum / statistics[mIndex].CalmCount;
+    if (statistics[monthindex].CalmCount > 0) {
+        calmavg = (float)calm_sum / statistics[monthindex].CalmCount;
     }
-    if (statistics[mIndex].StressedCount > 0) {
-        stressavg = (float)stress_sum / statistics[mIndex].StressedCount;
+    if (statistics[monthindex].StressedCount > 0) {
+        stressavg = (float)stress_sum / statistics[monthindex].StressedCount;
     }
-    if (statistics[mIndex].AngryCount > 0) {
-        angryavg = (float)angry_sum / statistics[mIndex].AngryCount;
+    if (statistics[monthindex].AngryCount > 0) {
+        angryavg = (float)angry_sum / statistics[monthindex].AngryCount;
     }
 }
 
 void DisplayStatistics(int month) {
     float happyavg = 0, sadavg = 0, calmavg = 0, stressavg = 0, angryavg = 0;
-     mIndex = month - 1;
-    if (statistics[mIndex].TotalEntries == 0) {
+    monthindex = month - 1;
+    if (statistics[monthindex].TotalEntries == 0) {
         cout << "\nNo data for month " << month << endl;
         system("pause");
         return;
     }
     cout << "\n--- Statistics Report for Month " << month << " ---" << endl;
-    cout << "Total Records: " << statistics[mIndex].TotalEntries << endl;
+    cout << "Total Records: " << statistics[monthindex].TotalEntries << endl;
     cout << "Average Mood Level: ";
     AverageMoodlevel(moodCount, month, happyavg, sadavg, calmavg, stressavg, angryavg);
-    if (statistics[mIndex].HappyCount > 0) {
+    if (statistics[monthindex].HappyCount > 0) {
         cout << "happy avarege= " << happyavg << endl;
     }
     else {
         cout << " No Happy Avgarage For This Month\n";
     }
-    if (statistics[mIndex].SadCount > 0) {
+    if (statistics[monthindex].SadCount > 0) {
         cout << "sad avarege= " << sadavg << endl;
     }
     else {
         cout << " No Sad Avgarage For This Month\n";
     }
-    if (statistics[mIndex].CalmCount > 0) {
+    if (statistics[monthindex].CalmCount > 0) {
         cout << "calm avarege= " << calmavg << endl;
     }
     else {
         cout << " No Calm Avgarage For This Month\n";
     }
-    if (statistics[mIndex].StressedCount > 0) {
+    if (statistics[monthindex].StressedCount > 0) {
         cout << "stress avarege= " << stressavg << endl;
     }
     else {
         cout << " No Stress Avgarage For This Month\n";
     }
-    if (statistics[mIndex].AngryCount > 0) {
+    if (statistics[monthindex].AngryCount > 0) {
         cout << "angry avarege= " << angryavg << endl;
     }
     else {
@@ -836,8 +848,8 @@ void DisplayStatistics(int month) {
     system("pause");
 }
 
-void UpdateAllStatistics(moodEntry moods[], int size) {
+void UpdateAllStatistics(moodEntry moods[], int moodCount) {
     for (int m = 1; m <= 12; m++) {
-        AnalyzeMoodFrequency(moods, size, m);
+        AnalyzeMoodFrequency(moods, moodCount, m);
     }
 }
