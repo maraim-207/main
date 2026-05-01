@@ -1066,11 +1066,6 @@ void AnalyzeMoodFrequency(moodEntry moods[], int size, int month) {
             transform(type.begin(), type.end(), type.begin(), [](unsigned char c) {
                 return tolower(c);
                 });
-            if (type == "happy") statistics[monthindex].HappyCount++;
-            else if (type == "sad") statistics[monthindex].SadCount++;
-            else if (type == "angry") statistics[monthindex].AngryCount++;
-            else if (type == "stressed") statistics[monthindex].StressedCount++;
-            else if (type == "calm") statistics[monthindex].CalmCount++;
         }
     }
 }
