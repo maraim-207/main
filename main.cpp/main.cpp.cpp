@@ -1023,6 +1023,7 @@ void Delete(moodEntry moods[], int& moodCount)
 //Statistics functions
 
 void DisplayStatistics(int month) {
+    system("cls");
     float happyavg = 0, sadavg = 0, calmavg = 0, stressavg = 0, angryavg = 0;
 
     monthindex = month - 1;
