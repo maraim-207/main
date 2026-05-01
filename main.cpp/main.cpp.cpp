@@ -51,18 +51,6 @@ UserAccount users[max_users];
 UserAccount currentuser;
 moodEntry moods[maxMoodStorage];
 MoodStatistics statistics[12];
-//chares
-string toLowerCase(string str) {
-
-    for (char& c : str) {
-
-        c = tolower(c);
-
-    }
-
-    return str;
-
-}
 
 //function declarations
 void logmenu();
@@ -1128,23 +1116,23 @@ void AverageMoodlevel(moodEntry moods[], int moodCount, int month, float& happya
         if (moods[i].time.month != month) {
             continue;//neglect other mounthes
         }
-        if (moods[i].moodtype == "happy") {
+        if (moods[i].moodtype == "happy"||moods[i].moodtype =="Happy") {
             happy_sum += moods[i].moodLevel;
             statistics[monthindex].HappyCount++;
         }
-        else if (moods[i].moodtype == "sad") {
+        else if (moods[i].moodtype == "sad"||moods[i].moodtype =="Sad") {
             sad_sum += moods[i].moodLevel;
             statistics[monthindex].SadCount++;
         }
-        else if (moods[i].moodtype == "calm") {
+        else if (moods[i].moodtype == "calm"||moods[i].moodtype =="Calm") {
             calm_sum += moods[i].moodLevel;
             statistics[monthindex].CalmCount++;
         }
-        else if (moods[i].moodtype == "stressed") {
+        else if (moods[i].moodtype == "stressed"||moods[i].moodtype =="Stressed") {
             stress_sum += moods[i].moodLevel;
             statistics[monthindex].StressedCount++;
         }
-        else if (moods[i].moodtype == "angry") {
+        else if (moods[i].moodtype == "angry"||moods[i].moodtype =="Angry") {
             angry_sum += moods[i].moodLevel;
             statistics[monthindex].AngryCount++;
         }
