@@ -725,7 +725,7 @@ void validationDate(int& validDay, int& validMonth, int& validYear)
 
 bool validationMoodtype(const string& mood)
 {
-    return (mood == "Happy"  || mood == "Sad"  ||mood == "Angry" ||   mood == "Stressed"|| mood == "Calm");
+    return (mood == "Happy" || mood == "Sad" || mood == "Angry" || mood == "Stressed" || mood == "Calm");
 }
 void validationMoodLevel(moodEntry moods[], int& moodCount)
 {
@@ -744,7 +744,7 @@ void validationMoodLevel(moodEntry moods[], int& moodCount)
             cin.clear();
             cin.ignore(10000, '\n');
             system("sleep 4");
-            cout<<"Enter The Mood Level: ";
+            cout << "Enter The Mood Level: ";
             cin >> moods[moodCount].moodLevel;
         } while (moods[moodCount].moodLevel > 5 || moods[moodCount].moodLevel < 1);
     }
@@ -777,7 +777,7 @@ void addMood(moodEntry moods[], int& moodCount)
         cout << "╚════════════════════════════════════╝\n\n";
         cin.clear();
         cin.ignore(10000, '\n');
-        cout<<"Enter The MoodType: ";
+        cout << "Enter The MoodType: ";
         cin >> moods[moodCount].moodtype;
     }
 
@@ -877,7 +877,8 @@ void SearchByDate(moodEntry moods[], int& moodCount) {
 
 }
 
-void SearchByType(moodEntry moods[], int& moodCount) {
+void SearchByType(moodEntry moods[], int& moodCount)
+{
     system("cls");
     string type;
     bool found = false;
@@ -891,8 +892,11 @@ void SearchByType(moodEntry moods[], int& moodCount) {
     cout << "Enter the type of mood:\n";
     cin >> type;
     cout << endl << "      ________________\n";
-    for (int i = 0; i < moodCount; i++) {
-        if (moods[i].moodtype == type) {
+
+    for (int i = 0; i < moodCount; i++) 
+    {
+        if (moods[i].moodtype == type) 
+        {
             mood_output(moods, i);
             indexes[idxCount++] = i;
             found = true;
@@ -910,7 +914,8 @@ void SearchByType(moodEntry moods[], int& moodCount) {
     cout << "Do you want to filter these results by mood level ?  (y/n)\n";
     cin >> choice;
 
-    if (choice == 'y' || choice == 'Y') {
+    if (choice == 'y' || choice == 'Y') 
+    {
         do
         {
             system("cls");
@@ -928,20 +933,17 @@ void SearchByType(moodEntry moods[], int& moodCount) {
                 system("timeout /t 5 > nul");
             }
         } while (level < 1 || level>5);
-        for (int j = 0; j < idxCount; j++){
-            if (moods[indexes[j]].moodLevel == level) {
+
+        for (int j = 0; j < idxCount; j++) 
+        {
+            if (moods[indexes[j]].moodLevel == level) 
+            {
                 mood_output(moods, indexes[j]);
                 levelFound = true;
             }
-            if (!levelFound) {
-                cout << endl;
-                cout << "╔═══════════════════════════════════════╗\n";
-                cout << "║                                       ║\n";
-                cout << "║No moods with this level in this type..║\n";
-                cout << "║                                       ║\n";
-                cout << "╚═══════════════════════════════════════╝\n";
-            }
-            else if (choice == 'N' || choice == 'n') {
+
+            else if (choice == 'N' || choice == 'n')
+            {
                 cout << endl;
                 cout << "╔════════════════════════════════════╗\n";
                 cout << "║                                    ║\n";
@@ -949,48 +951,60 @@ void SearchByType(moodEntry moods[], int& moodCount) {
                 cout << "║                                    ║\n";
                 cout << "╚════════════════════════════════════╝\n";
             }
-            else {
+            else
+            {
                 cout << endl;
                 cout << "╔════════════════════════════════════╗\n";
                 cout << "║           Invalid choise!          ║\n";
                 cout << "╚════════════════════════════════════╝\n";
             }
+            if (!levelFound)
+            {
+                cout << endl;
+                cout << "╔═══════════════════════════════════════╗\n";
+                cout << "║                                       ║\n";
+                cout << "║No moods with this level in this type..║\n";
+                cout << "║                                       ║\n";
+                cout << "╚═══════════════════════════════════════╝\n";
+            }
         }
     }
 }
-void SearchByLevel(moodEntry moods[], int& moodCount) {
-        int level;
-        bool found = false;
-        do {
-            system("cls");
-            cout << "_______________________\n";
-            cout << "Enter the level of mood:\n";
-            cin >> level;
-            cout << endl << "      ______\n";
-            if (level < 1 || level>5 ) {
-                cout << "╔════════════════════════════════════╗\n";
-                cout << "║                                    ║\n";
-                cout << "║       Inva4lid level entered!      ║\n";
-                cout << "║   level must be in betweem (1:5)   ║\n";
-                cout << "║                                    ║\n";
-                cout << "╚════════════════════════════════════╝\n";
-                system("timeout /t 5 > nul");
-            }
-        }while (level < 1 || level>5);
-            for (int i = 0; i < moodCount; i++){
-                if (moods[i].moodLevel == level) {
-                    mood_output(moods, i);
-                    found = true;
-                }
-                if (!found) {
-                    cout << "╔════════════════════════════════════╗\n";
-                    cout << "║                                    ║\n";
-                    cout << "║   No mood found at this level...   ║\n";
-                    cout << "║                                    ║\n";
-                    cout << "╚════════════════════════════════════╝\n";
-                }
-            }
+
+void SearchByLevel(moodEntry moods[], int& moodCount)
+{
+    int level;
+    bool found = false;
+    do {
+        system("cls");
+        cout << "_______________________\n";
+        cout << "Enter the level of mood:\n";
+        cin >> level;
+        cout << endl << "      ______\n";
+        if (level < 1 || level>5) {
+            cout << "╔════════════════════════════════════╗\n";
+            cout << "║                                    ║\n";
+            cout << "║       Inva4lid level entered!      ║\n";
+            cout << "║   level must be in betweem (1:5)   ║\n";
+            cout << "║                                    ║\n";
+            cout << "╚════════════════════════════════════╝\n";
+            system("timeout /t 5 > nul");
         }
+    } while (level < 1 || level>5);
+    for (int i = 0; i < moodCount; i++) {
+        if (moods[i].moodLevel == level) {
+            mood_output(moods, i);
+            found = true;
+        }
+        if (!found) {
+            cout << "╔════════════════════════════════════╗\n";
+            cout << "║                                    ║\n";
+            cout << "║   No mood found at this level...   ║\n";
+            cout << "║                                    ║\n";
+            cout << "╚════════════════════════════════════╝\n";
+        }
+    }
+}
 
 void SearchByWord(moodEntry moods[], int& moodCount) {
     system("cls");
@@ -1258,23 +1272,23 @@ void AverageMoodlevel(moodEntry moods[], int moodCount, int month, float& happya
         if (moods[i].time.month != month) {
             continue;//neglect other mounthes
         }
-        if (moods[i].moodtype =="Happy") {
+        if (moods[i].moodtype == "Happy") {
             happy_sum += moods[i].moodLevel;
             statistics[monthindex].HappyCount++;
         }
-        else if (moods[i].moodtype =="Sad") {
+        else if (moods[i].moodtype == "Sad") {
             sad_sum += moods[i].moodLevel;
             statistics[monthindex].SadCount++;
         }
-        else if (moods[i].moodtype =="Calm") {
+        else if (moods[i].moodtype == "Calm") {
             calm_sum += moods[i].moodLevel;
             statistics[monthindex].CalmCount++;
         }
-        else if (moods[i].moodtype =="Stressed") {
+        else if (moods[i].moodtype == "Stressed") {
             stress_sum += moods[i].moodLevel;
             statistics[monthindex].StressedCount++;
         }
-        else if (moods[i].moodtype =="Angry") {
+        else if (moods[i].moodtype == "Angry") {
             angry_sum += moods[i].moodLevel;
             statistics[monthindex].AngryCount++;
         }
