@@ -791,6 +791,7 @@ void addMood(moodEntry moods[], int& moodCount)
         cout << "╚════════════════════════════════════╝\n\n";
         cin.clear();
         cin.ignore(10000, '\n');
+        cout<<"Enter The MoodType: ";
         cin >> moods[moodCount].moodtype;
     }
 
