@@ -65,7 +65,6 @@ int loadingMoods(moodEntry moods[]);
 void saveMoods();
 void addMood(moodEntry moods[], int& moodCount);
 void mood_output(moodEntry moods[], int i);
-void display(moodEntry moods[], int);
 void SearchMood(moodEntry moods[], int& moodCount);
 void SearchByDate(moodEntry moods[], int& moodcount);
 void SearchByType(moodEntry moods[], int& moodcount);
@@ -805,29 +804,6 @@ void mood_output(moodEntry moods[], int i)
     cout << "║ Mood level:" << moods[i].moodLevel << "                     ║\n";
     cout << "║ Notes:" << moods[i].note << "                     ║\n";
     cout << "╚════════════════════════════════════╝\n";
-}
-void display(moodEntry moods[], int moodCount)
-{
-    int day, month, year;
-    bool found = false;
-
-    cout << "Enter date to display (day/month/year): \n";
-    cin >> day >> month >> year;
-
-    for (int i = 0; i < moodCount; i++)
-    {
-        if (moods[i].time.day == day &&
-            moods[i].time.month == month &&
-            moods[i].time.year == year)
-        {
-            mood_output(moods, i);
-
-            found = true;
-        }
-    }
-
-    if (!found)
-        cout << "No data found for this date\n";
 }
 
 //Search moods function
