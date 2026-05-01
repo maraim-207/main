@@ -914,15 +914,14 @@ void SearchByType(moodEntry moods[], int& moodCount)
     cout << "Do you want to filter these results by mood level ?  (y/n)\n";
     cin >> choice;
 
-    if (choice == 'y' || choice == 'Y') 
-    {
+   if (choice == 'y' || choice == 'Y') {
         do
         {
             system("cls");
-            cout << "_______________________\n";
+            cout << "_________\n";
             cout << "Enter the level of mood:\n";
             cin >> level;
-            cout << endl << "      ______\n";
+            cout << endl << "      __\n";
             if (level < 1 || level>5) {
                 cout << "╔════════════════════════════════════╗\n";
                 cout << "║                                    ║\n";
@@ -933,41 +932,34 @@ void SearchByType(moodEntry moods[], int& moodCount)
                 system("timeout /t 5 > nul");
             }
         } while (level < 1 || level>5);
-
-        for (int j = 0; j < idxCount; j++) 
-        {
-            if (moods[indexes[j]].moodLevel == level) 
-            {
+        for (int j = 0; j < idxCount; j++) {
+            if (moods[indexes[j]].moodLevel == level) {
                 mood_output(moods, indexes[j]);
                 levelFound = true;
             }
-
-            else if (choice == 'N' || choice == 'n')
-            {
-                cout << endl;
-                cout << "╔════════════════════════════════════╗\n";
-                cout << "║                                    ║\n";
-                cout << "║          Okay, returning...        ║\n";
-                cout << "║                                    ║\n";
-                cout << "╚════════════════════════════════════╝\n";
-            }
-            else
-            {
-                cout << endl;
-                cout << "╔════════════════════════════════════╗\n";
-                cout << "║           Invalid choise!          ║\n";
-                cout << "╚════════════════════════════════════╝\n";
-            }
-            if (!levelFound)
-            {
-                cout << endl;
-                cout << "╔═══════════════════════════════════════╗\n";
-                cout << "║                                       ║\n";
-                cout << "║No moods with this level in this type..║\n";
-                cout << "║                                       ║\n";
-                cout << "╚═══════════════════════════════════════╝\n";
-            }
         }
+    }
+    else if (choice == 'N' || choice == 'n') {
+        cout << endl;
+        cout << "╔════════════════════════════════════╗\n";
+        cout << "║                                    ║\n";
+        cout << "║          Okay, returning...        ║\n";
+        cout << "║                                    ║\n";
+        cout << "╚════════════════════════════════════╝\n";
+    }
+    else {
+        cout << endl;
+        cout << "╔════════════════════════════════════╗\n";
+        cout << "║           Invalid choise!          ║\n";
+        cout << "╚════════════════════════════════════╝\n";
+    }
+    if (!levelFound) {
+        cout << endl;
+        cout << "╔═══════════════════════════════════════╗\n";
+        cout << "║                                       ║\n";
+        cout << "║No moods with this level in this type..║\n";
+        cout << "║                                       ║\n";
+        cout << "╚═══════════════════════════════════════╝\n";
     }
 }
 
