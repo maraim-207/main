@@ -1221,11 +1221,6 @@ void AnalyzeMoodFrequency(moodEntry moods[], int size, int month) {
     for (int i = 0; i < size; i++) {
         if (moods[i].time.month == month) {
             statistics[monthindex].TotalEntries++;
-
-            string type = moods[i].moodtype;
-            transform(type.begin(), type.end(), type.begin(), [](unsigned char c) {
-                return tolower(c);
-                });
         }
     }
 }
