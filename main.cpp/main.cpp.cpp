@@ -77,7 +77,7 @@ void DisplayStatistics(int);
 void UpdateAllStatistics(moodEntry moods[], int);
 void AnalyzeMoodFrequency(moodEntry moods[], int, int);
 void AverageMoodlevel(moodEntry moods[], int, int, float&, float&, float&, float&, float&);
-
+void displayAll(moodEntry moods[], int moodCount)
 
 //main function
 int main()
@@ -1301,7 +1301,23 @@ void AverageMoodlevel(moodEntry moods[], int moodCount, int month, float& happya
         angryavg = (float)angry_sum / statistics[monthindex].AngryCount;
     }
 }
+void displayAll(moodEntry moods[], int moodCount)
+{
+    cout << "\n📋 All Mood Entries:\n";
+    cout << "=====================================\n";
 
+    for (int i = 0; i < moodCount; i++)
+    {
+        cout << "📅 " << moods[i].time.day << "/"
+            << moods[i].time.month << "/"
+            << moods[i].time.year << endl;
+
+        cout << "😊 Mood: " << moods[i].moodtype << endl;
+        cout << "📊 Level: " << moods[i].moodLevel << endl;
+        cout << "📝 Note: " << moods[i].note << endl;
+        cout << "-------------------------------------\n";
+    }
+}
 void preStoredMoods()
 {
     moods[0] = { {1, 4, 2026}, 5, "Happy", "Finished my project" };
