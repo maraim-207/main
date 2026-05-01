@@ -723,11 +723,7 @@ void validationDate(int& validDay, int& validMonth, int& validYear)
 
 bool validationMoodtype(const string& mood)
 {
-    return (mood == "Happy" || mood == "happy" ||
-        mood == "Sad" || mood == "sad" ||
-        mood == "Angry" || mood == "angry" ||
-        mood == "Stressed" || mood == "stressed" ||
-        mood == "Calm" || mood == "calm");
+    return (mood == "Happy"  || mood == "Sad"  ||mood == "Angry" ||   mood == "Stressed"|| mood == "Calm");
 }
 void validationMoodLevel(moodEntry moods[], int& moodCount)
 {
@@ -1116,23 +1112,23 @@ void AverageMoodlevel(moodEntry moods[], int moodCount, int month, float& happya
         if (moods[i].time.month != month) {
             continue;//neglect other mounthes
         }
-        if (moods[i].moodtype == "happy"||moods[i].moodtype =="Happy") {
+        if (moods[i].moodtype =="Happy") {
             happy_sum += moods[i].moodLevel;
             statistics[monthindex].HappyCount++;
         }
-        else if (moods[i].moodtype == "sad"||moods[i].moodtype =="Sad") {
+        else if (moods[i].moodtype =="Sad") {
             sad_sum += moods[i].moodLevel;
             statistics[monthindex].SadCount++;
         }
-        else if (moods[i].moodtype == "calm"||moods[i].moodtype =="Calm") {
+        else if (moods[i].moodtype =="Calm") {
             calm_sum += moods[i].moodLevel;
             statistics[monthindex].CalmCount++;
         }
-        else if (moods[i].moodtype == "stressed"||moods[i].moodtype =="Stressed") {
+        else if (moods[i].moodtype =="Stressed") {
             stress_sum += moods[i].moodLevel;
             statistics[monthindex].StressedCount++;
         }
-        else if (moods[i].moodtype == "angry"||moods[i].moodtype =="Angry") {
+        else if (moods[i].moodtype =="Angry") {
             angry_sum += moods[i].moodLevel;
             statistics[monthindex].AngryCount++;
         }
@@ -1159,11 +1155,11 @@ void preStoredMoods()
     moods[0] = { {1, 4, 2026}, 5, "Happy", "Finished my project" };
     moods[1] = { {2, 4, 2026}, 3, "Calm", "Normal day" };
     moods[2] = { {3, 4, 2026}, 2, "Stressed", "Exam coming up" };
-    moods[3] = { {4, 4, 2026}, 5, "sad", "did not pass the exam" };
+    moods[3] = { {4, 4, 2026}, 5, "Sad", "did not pass the exam" };
     moods[4] = { {5, 4, 2026}, 3, "Calm", "Normal day" };
     moods[5] = { {6, 4, 2026}, 2, "Stressed", "Exam coming up" };
     moods[6] = { {7, 4, 2026}, 5, "Happy", "passed the exam" };
     moods[7] = { {8, 4, 2026}, 5, "Calm", "Normal day" };
-    moods[8] = { {9, 4, 2026}, 2, "happy", "a new semister comming up" };
+    moods[8] = { {9, 4, 2026}, 2, "Happy", "a new semister comming up" };
     moodCount = 9;
 }
