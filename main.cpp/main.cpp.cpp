@@ -112,14 +112,14 @@ int main()
         int choice;
         system("cls");
         cout << "╔═══════════════════════════════════════════════════════╗\n";
-        cout << "║              🎉 Welcome " << currentuser.username << "! 🎉                 ║\n";
+        cout << "║              🎉 Welcome " << currentuser.username << "! 🎉                    ║\n";
         cout << "╠═══════════════════════════════════════════════════════╣\n";
         cout << "║                                                       ║\n";
         cout << "║              📊 Digital Mood Tracker                  ║\n";
         cout << "║                                                       ║\n";
         cout << "╠═══════════════════════════════════════════════════════╣\n";
         cout << "║  [1] ➕ Add New Mood Entry                             ║\n";
-        cout << "║  [2] 📅 Display Mood by Date                          ║\n";
+        cout << "║  [2] 📅 Display Mood by Date                         ║\n";
         cout << "║  [3] 🔍 Search Mood                                   ║\n";
         cout << "║  [4] ✏️  Update Mood Entry                            ║\n";
         cout << "║  [5] 🗑️  Delete Mood Entry                            ║\n";
@@ -146,8 +146,14 @@ int main()
             addMood(moods, moodCount);
             saveMoods();
             UpdateAllStatistics(moods, moodCount);
-            cout << "Mood added successfully!\n";
-            system("timeout /t 2 > nul");
+            cout << "╔═════════════════════════════════╗\n";
+            cout << "║             Success✅           ║\n";
+            cout << "╠═════════════════════════════════╣\n";
+            cout << "║                                 ║\n";
+            cout << "║    Mood added successfully! ✅  ║\n";
+            cout << "║                                 ║\n";
+            cout << "╚═════════════════════════════════╝\n";
+            system("timeout /t 3 > nul");
             break;
 
         case 2:
@@ -192,7 +198,7 @@ int main()
 
         case 7:
             cout << "Logging out...\n";
-            system("timeout /t 1 > nul");
+            system("timeout /t 3 > nul");
             currentuser = { 0, "", "" }; // إعادة تعيين المستخدم الحالي
             moodCount = 0; // إعادة تعيين عدد المودات
             // العودة لشاشة تسجيل الدخول
@@ -652,20 +658,85 @@ void showLogMenu()
     }
 }
 
+void validationDate(int& validDay, int& validMonth, int& validYear)
+{
+    bool validDate = false;
+    do {
+        cout << "╔════════════════════════════════════╗\n";
+        cout << "║       Enter Date                   ║\n";
+        cout << "╠════════════════════════════════════╣\n";
+        cout << "║  Day / Month / Year: ";
+
+        if (!(cin >> validDay >> validMonth >> validYear))
+        {
+            cin.clear();
+            cin.ignore(10000, '\n');
+            system("clear");
+            cout << "╔════════════════════════════════════╗\n";
+            cout << "║           Invalid Input!           ║\n";
+            cout << "╠════════════════════════════════════╣\n";
+            cout << "║  Please enter numbers only...      ║\n";
+            cout << "╚════════════════════════════════════╝\n";
+            system("sleep 2");
+            system("clear");
+            continue;
+        }
+
+        if (validDay < 1 || validDay > 31) {
+            system("clear");
+            cout << "╔════════════════════════════════════╗\n";
+            cout << "║           Invalid Day!             ║\n";
+            cout << "╠════════════════════════════════════╣\n";
+            cout << "║  Day must be between 1 and 31...   ║\n";
+            cout << "╚════════════════════════════════════╝\n";
+            system("sleep 2");
+            system("clear");
+        }
+        else if (validMonth < 1 || validMonth > 12) {
+            system("clear");
+            cout << "╔════════════════════════════════════╗\n";
+            cout << "║           Invalid Month!           ║\n";
+            cout << "╠════════════════════════════════════╣\n";
+            cout << "║  Month must be between 1 and 12... ║\n";
+            cout << "╚════════════════════════════════════╝\n";
+            system("sleep 2");
+            system("clear");
+        }
+        else if (validYear < 2000 || validYear > 2100) {
+            system("clear");
+            cout << "╔════════════════════════════════════╗\n";
+            cout << "║           Invalid Year!            ║\n";
+            cout << "╠════════════════════════════════════╣\n";
+            cout << "║  Year must be between 2000 & 2100  ║\n";
+            cout << "╚════════════════════════════════════╝\n";
+            system("sleep 2");
+            system("clear");
+        }
+        else
+            validDate = true;
+
+    } while (!validDate);
+}
 
 //Add new mood entry function
 void addMood(moodEntry moods[], int& moodCount)
 {
-    cout << "Enter the day\n";
-    cin >> moods[moodCount].time.day;
-    cout << "Enter the month\n";
-    cin >> moods[moodCount].time.month;
-    cout << "Enter the year\n";
-    cin >> moods[moodCount].time.year;
-    cout << "Enter the mood type \n";
-    cout << "Happy\tSad\tAngry\tStressed\tcalm\n";
+    int validDay, validMonth, validYear;
+    validationDate(validDay, validMonth, validYear);
+    moods[moodCount].time.day = validDay;
+    moods[moodCount].time.month = validMonth;
+    moods[moodCount].time.year = validYear;
+	system("cls");
+    cout << "╔═════════════════════════════════════════════════════════╗\n";
+	cout << "║                    ➕Add New Mood                       ║\n";
+    cout << "╠═════════════════════════════════════════════════════════╣\n";
+	cout << "║                      Mood Types:                        ║\n";
+    cout << "╠═════════════════════════════════════════════════════════╣\n";
+	cout << "║  😃 Happy / 🥲 Sad / 😡 Angry / 😫 Stressed / 😌 Calm   ║\n";
+	cout << "╚═════════════════════════════════════════════════════════╝\n";
+    cout << "Enter Mood Type: ";
     cin >> moods[moodCount].moodtype;
-    cout << "Enter the mood level from (1 - 5)\n";
+    cout << "Enter the mood level from (1 - 5): ";
     cin >> moods[moodCount].moodLevel;
     if (moods[moodCount].moodLevel > 5 || moods[moodCount].moodLevel < 1)
     {
@@ -681,35 +752,35 @@ void addMood(moodEntry moods[], int& moodCount)
             cout << "╚════════════════════════════════════╝\n";
             cin.clear();
             cin.ignore(10000, '\n');
-            system("timeout /t 4 > nul");
+            system("sleep 4");
             cin >> moods[moodCount].moodLevel;
         } while (moods[moodCount].moodLevel > 5 || moods[moodCount].moodLevel < 1);
     }
-    cout << "Enter the note\n";
-    cin >> moods[moodCount].note;
+    cout << "Enter the note: ";
+    cin.ignore();
+	getline(cin, moods[moodCount].note);
     moodCount++;
+	saveMoods();
 }
 
 //Display mood entry function
 void mood_output(moodEntry moods[], int i)
 {
 
-    cout << "_________________________________________________________________";
-    cout << "Date:" << moods[i].time.day << "/" << moods[i].time.month << "/" << moods[i].time.year << endl << "      ________________"
-        << endl
-        << "Mood type:" << moods[i].moodtype << endl << "      ________________"
-        << endl
-        << "Mood level:" << moods[i].moodLevel << endl << "      ________________"
-        << endl
-        << "Notes:" << moods[i].note << endl;
-    cout << "_________________________________________________________________";
+    cout << "╔════════════════════════════════════╗\n";
+    cout << "║ Date:" << moods[i].time.day << "/" << moods[i].time.month << "/" << moods[i].time.year << "           ║\n";
+    cout << "╠════════════════════════════════════╣\n";
+	cout << "║ Mood type:" << moods[i].moodtype << "                     ║\n";
+    cout << "║ Mood level:" << moods[i].moodLevel << "                     ║\n";
+    cout << "║ Notes:" << moods[i].note << "                     ║\n";
+    cout << "╚════════════════════════════════════╝\n";
 }
 void display(moodEntry moods[], int moodCount)
 {
     int day, month, year;
     bool found = false;
 
-    cout << "Enter date to display (day month year): ";
+    cout << "Enter date to display (day/month/year): \n";
     cin >> day >> month >> year;
 
     for (int i = 0; i < moodCount; i++)
@@ -814,10 +885,8 @@ void updateFuncion(moodEntry moods[], int& moodCount)
     string newNote;
 
     do {
-        cout << "Enter day / month / year to update mood entry\n";
-        cin >> searchDay >> searchMonth >> searchYear;
-
-
+        cout << "Enter day / month / year to update mood entry " << endl;
+        validationDate(searchDay, searchMonth, searchYear);
 
         for (int i = 0; i < moodCount; i++)
         {
@@ -830,11 +899,9 @@ void updateFuncion(moodEntry moods[], int& moodCount)
             }
         }
 
-
-
         if (indexDateUserUpdate == -1)
         {
-            system("cls");
+            system("clear");
             cout << "╔════════════════════════════════════╗\n";
             cout << "║           Invalid Entry!           ║\n";
             cout << "╠════════════════════════════════════╣\n";
@@ -844,13 +911,11 @@ void updateFuncion(moodEntry moods[], int& moodCount)
             cout << "╚════════════════════════════════════╝\n";
             cin.clear();
             cin.ignore(10000, '\n');
-            system("timeout 4 > nul");
+            system("sleep 4");
         }
-
-
         else
         {
-            system("cls");
+            system("clear");
             cout << "╔════════════════════════════════════╗\n";
             cout << "║         Current Mood Entry         ║\n";
             cout << "╠════════════════════════════════════╣\n";
@@ -870,11 +935,10 @@ void updateFuncion(moodEntry moods[], int& moodCount)
             cin.ignore();
             getline(cin, newNote);
 
-
-
             moods[indexDateUserUpdate].moodtype = newMoodtype;
             moods[indexDateUserUpdate].moodLevel = newMoodLevel;
             moods[indexDateUserUpdate].note = newNote;
+            break;
         }
     } while (indexDateUserUpdate == -1);
 
@@ -889,7 +953,8 @@ void updateFuncion(moodEntry moods[], int& moodCount)
     cout << "║ Mood Level: " << moods[indexDateUserUpdate].moodLevel << "\n";
     cout << "║ Note:       " << moods[indexDateUserUpdate].note << "\n";
     cout << "╚════════════════════════════════════╝\n";
-    system("timeout 4 > nul");
+    system("sleep 4");
+	saveMoods();
 }
 
 //Delete moods function
@@ -938,6 +1003,7 @@ void Delete(moodEntry moods[], int& moodCount)
     cout << "╚══════════════════════════════════════════════╝\n";
 
     system("pause");
+	saveMoods();
 }
 
 //Statistics functions
@@ -1058,4 +1124,18 @@ void AverageMoodlevel(moodEntry moods[], int moodCount, int month, float& happya
     if (statistics[monthindex].AngryCount > 0) {
         angryavg = (float)angry_sum / statistics[monthindex].AngryCount;
     }
+}
+
+void preStoredMoods()
+{
+    moods[0] = { {1, 4, 2026}, 5, "Happy", "Finished my project" };
+    moods[1] = { {2, 4, 2026}, 3, "Calm", "Normal day" };
+    moods[2] = { {3, 4, 2026}, 2, "Stressed", "Exam coming up" };
+    moods[3] = { {4, 4, 2026}, 5, "sad", "did not pass the exam" };
+    moods[4] = { {5, 4, 2026}, 3, "Calm", "Normal day" };
+    moods[5] = { {6, 4, 2026}, 2, "Stressed", "Exam coming up" };
+    moods[6] = { {7, 4, 2026}, 5, "Happy", "passed the exam" };
+    moods[7] = { {8, 4, 2026}, 5, "Calm", "Normal day" };
+    moods[8] = { {9, 4, 2026}, 2, "happy", "a new semister comming up" };
+    moodCount = 9;
 }
