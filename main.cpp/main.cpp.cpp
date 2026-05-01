@@ -15,9 +15,9 @@ int userscount = 0;
 int logentry;
 int moodCount = 0;
 int monthindex;
+const int max_users = 10;
 
 //Structs declarations
-const int max_users = 10;
 struct UserAccount
 {
     int userid;
@@ -51,7 +51,6 @@ UserAccount users[max_users];
 UserAccount currentuser;
 moodEntry moods[maxMoodStorage];
 MoodStatistics statistics[12];
-date m[max_users];
 //chares
 string toLowerCase(string str) {
 
@@ -68,6 +67,7 @@ string toLowerCase(string str) {
 //function declarations
 void logmenu();
 void login();
+void preStoredMoods();
 void signup();
 void closing();
 void showLogMenu();
@@ -646,6 +646,7 @@ void showLogMenu()
         {
         case 1:
             login();
+            preStoredMoods();
             if (currentuser.userid != 0)
                 return;
             break;
@@ -757,6 +758,7 @@ void validationMoodLevel(moodEntry moods[], int& moodCount)
             cin.clear();
             cin.ignore(10000, '\n');
             system("sleep 4");
+            cout<<"Enter The Mood Level: ";
             cin >> moods[moodCount].moodLevel;
         } while (moods[moodCount].moodLevel > 5 || moods[moodCount].moodLevel < 1);
     }
