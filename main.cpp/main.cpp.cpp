@@ -5,6 +5,8 @@
 #include <string>
 #include <cstdlib>
 #include<sstream>
+#include <algorithm>
+#include <cctype>
 #define maxMoodStorage 100
 using namespace std;
 
@@ -50,6 +52,18 @@ UserAccount currentuser;
 moodEntry moods[maxMoodStorage];
 MoodStatistics statistics[12];
 date m[max_users];
+//chares
+string toLowerCase(string str) {
+
+    for (char& c : str) {
+
+        c = tolower(c);
+
+    }
+
+    return str;
+
+}
 
 //function declarations
 void logmenu();
@@ -605,7 +619,7 @@ void closing()
 void showLogMenu()
 {
     userscount = loadingusers();
-    for (int i = 0; i < userscount; ++i) 
+    for (int i = 0; i < userscount; ++i)
     {
         users[i].userid = i + 1;
     }
@@ -726,14 +740,14 @@ void addMood(moodEntry moods[], int& moodCount)
     moods[moodCount].time.day = validDay;
     moods[moodCount].time.month = validMonth;
     moods[moodCount].time.year = validYear;
-	system("cls");
+    system("cls");
     cout << "╔═════════════════════════════════════════════════════════╗\n";
-	cout << "║                    ➕Add New Mood                       ║\n";
+    cout << "║                    ➕Add New Mood                       ║\n";
     cout << "╠═════════════════════════════════════════════════════════╣\n";
-	cout << "║                      Mood Types:                        ║\n";
+    cout << "║                      Mood Types:                        ║\n";
     cout << "╠═════════════════════════════════════════════════════════╣\n";
-	cout << "║  😃 Happy / 🥲 Sad / 😡 Angry / 😫 Stressed / 😌 Calm   ║\n";
-	cout << "╚═════════════════════════════════════════════════════════╝\n";
+    cout << "║  😃 Happy / 🥲 Sad / 😡 Angry / 😫 Stressed / 😌 Calm   ║\n";
+    cout << "╚═════════════════════════════════════════════════════════╝\n";
     cout << "Enter Mood Type: ";
     cin >> moods[moodCount].moodtype;
     cout << "Enter the mood level from (1 - 5): ";
@@ -758,9 +772,9 @@ void addMood(moodEntry moods[], int& moodCount)
     }
     cout << "Enter the note: ";
     cin.ignore();
-	getline(cin, moods[moodCount].note);
+    getline(cin, moods[moodCount].note);
     moodCount++;
-	saveMoods();
+    saveMoods();
 }
 
 //Display mood entry function
@@ -770,7 +784,7 @@ void mood_output(moodEntry moods[], int i)
     cout << "╔════════════════════════════════════╗\n";
     cout << "║ Date:" << moods[i].time.day << "/" << moods[i].time.month << "/" << moods[i].time.year << "           ║\n";
     cout << "╠════════════════════════════════════╣\n";
-	cout << "║ Mood type:" << moods[i].moodtype << "                     ║\n";
+    cout << "║ Mood type:" << moods[i].moodtype << "                     ║\n";
     cout << "║ Mood level:" << moods[i].moodLevel << "                     ║\n";
     cout << "║ Notes:" << moods[i].note << "                     ║\n";
     cout << "╚════════════════════════════════════╝\n";
@@ -954,7 +968,7 @@ void updateFuncion(moodEntry moods[], int& moodCount)
     cout << "║ Note:       " << moods[indexDateUserUpdate].note << "\n";
     cout << "╚════════════════════════════════════╝\n";
     system("sleep 4");
-	saveMoods();
+    saveMoods();
 }
 
 //Delete moods function
@@ -1003,53 +1017,34 @@ void Delete(moodEntry moods[], int& moodCount)
     cout << "╚══════════════════════════════════════════════╝\n";
 
     system("pause");
-	saveMoods();
+    saveMoods();
 }
 
 //Statistics functions
+
 void DisplayStatistics(int month) {
     float happyavg = 0, sadavg = 0, calmavg = 0, stressavg = 0, angryavg = 0;
+
     monthindex = month - 1;
-    if (statistics[monthindex].TotalEntries == 0) {
-        cout << "\nNo data for month " << month << endl;
-        system("pause");
-        return;
-    }
-    cout << "\n--- Statistics Report for Month " << month << " ---" << endl;
-    cout << "Total Records: " << statistics[monthindex].TotalEntries << endl;
-    cout << "Average Mood Level: ";
+
+    cout << "\n--- Statistics for Month " << month << " ---\n";
+    cout << "Total Entries: " << statistics[monthindex].TotalEntries << endl;
+
+    
     AverageMoodlevel(moods, moodCount, month, happyavg, sadavg, calmavg, stressavg, angryavg);
-    if (statistics[monthindex].HappyCount > 0) {
-        cout << "happy avarege= " << happyavg << endl;
-    }
-    else {
-        cout << " No Happy Avgarage For This Month\n";
-    }
-    if (statistics[monthindex].SadCount > 0) {
-        cout << "sad avarege= " << sadavg << endl;
-    }
-    else {
-        cout << " No Sad Avgarage For This Month\n";
-    }
-    if (statistics[monthindex].CalmCount > 0) {
-        cout << "calm avarege= " << calmavg << endl;
-    }
-    else {
-        cout << " No Calm Avgarage For This Month\n";
-    }
-    if (statistics[monthindex].StressedCount > 0) {
-        cout << "stress avarege= " << stressavg << endl;
-    }
-    else {
-        cout << " No Stress Avgarage For This Month\n";
-    }
-    if (statistics[monthindex].AngryCount > 0) {
-        cout << "angry avarege= " << angryavg << endl;
-    }
-    else {
-        cout << " No Angry Avgarage For This Month\n";
-    }
-    cout << " / 5" << endl;
+
+    
+    cout << "\nMood       | Count | Average Mood Level\n";
+    cout << "----------------------------------------\n";
+
+    cout << "Happy      | " << statistics[monthindex].HappyCount << "     | " << happyavg << "/5\n";
+    cout << "Sad        | " << statistics[monthindex].SadCount << "     | " << sadavg << "/5\n";
+    cout << "Calm       | " << statistics[monthindex].CalmCount << "     | " << calmavg << "/5\n";
+    cout << "Stressed   | " << statistics[monthindex].StressedCount << "     | " << stressavg << "/5\n";
+    cout << "Angry      | " << statistics[monthindex].AngryCount << "     | " << angryavg << "/5\n";
+
+    cout << "----------------------------------------\n";
+
     system("pause");
 }
 void UpdateAllStatistics(moodEntry moods[], int size)
@@ -1068,6 +1063,9 @@ void AnalyzeMoodFrequency(moodEntry moods[], int size, int month) {
             statistics[monthindex].TotalEntries++;
 
             string type = moods[i].moodtype;
+            transform(type.begin(), type.end(), type.begin(), [](unsigned char c) {
+                return tolower(c);
+                });
             if (type == "happy") statistics[monthindex].HappyCount++;
             else if (type == "sad") statistics[monthindex].SadCount++;
             else if (type == "angry") statistics[monthindex].AngryCount++;
@@ -1100,7 +1098,7 @@ void AverageMoodlevel(moodEntry moods[], int moodCount, int month, float& happya
             calm_sum += moods[i].moodLevel;
             statistics[monthindex].CalmCount++;
         }
-        else if (moods[i].moodtype == "stress") {
+        else if (moods[i].moodtype == "stressed") {
             stress_sum += moods[i].moodLevel;
             statistics[monthindex].StressedCount++;
         }
@@ -1139,3 +1137,4 @@ void preStoredMoods()
     moods[8] = { {9, 4, 2026}, 2, "happy", "a new semister comming up" };
     moodCount = 9;
 }
+
