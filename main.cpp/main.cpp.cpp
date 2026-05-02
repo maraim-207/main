@@ -1226,7 +1226,7 @@ void Delete(moodEntry moods[], int& moodCount)
 }
 
 //Statistics functions
-
+// Displays monthly statistics including counts and averages
 void DisplayStatistics(int month) {
     float happyavg = 0, sadavg = 0, calmavg = 0, stressavg = 0, angryavg = 0;
 
@@ -1252,13 +1252,14 @@ void DisplayStatistics(int month) {
 
     system("pause");
 }
+// Updates statistics for all months (1–12)
 void UpdateAllStatistics(moodEntry moods[], int size)
 {
     for (int m = 1; m <= 12; m++) {
         AnalyzeMoodFrequency(moods, size, m);
     }
 }
-
+// Calculates total number of entries for a specific month
 void AnalyzeMoodFrequency(moodEntry moods[], int size, int month) {
     monthindex = month - 1;
     statistics[monthindex] = { 0,0,0,0,0,0 }; // reset all
