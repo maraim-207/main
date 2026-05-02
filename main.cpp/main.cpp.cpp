@@ -107,14 +107,15 @@ int main()
         statistics[i] = { 0,0,0,0,0,0 };
     }
 
-
     // Show login menu until a user successfully logs in
     while (currentuser.userid == 0)
     {
         showLogMenu();
     }
+
 	// Load moods for the logged-in user
-    moodCount = loadingMoods(moods);
+    preStoredMoods();
+
 
     while (currentuser.userid != 0)
     {
@@ -770,7 +771,8 @@ void validationMoodLevel(moodEntry moods[], int& moodCount)
             cout << "╚════════════════════════════════════╝\n";
             cin.clear();
             cin.ignore(10000, '\n');
-            system("sleep 4");
+            system("timeout /t 2 > nul");
+			system("cls");
             cout << "Enter The Mood Level: ";
             cin >> moods[moodCount].moodLevel;
         } while (moods[moodCount].moodLevel > 5 || moods[moodCount].moodLevel < 1);
@@ -829,7 +831,7 @@ void mood_output(moodEntry moods[], int i)
 {
 
     cout << "╔════════════════════════════════════╗\n";
-    cout << "║ Date:" << moods[i].time.day << "/" << moods[i].time.month << "/" << moods[i].time.year << "           ║\n";
+    cout << "║ Date:" << moods[i].time.day << "/" << moods[i].time.month << "/" << moods[i].time.year << "                     ║\n";
     cout << "╠════════════════════════════════════╣\n";
     cout << "║ Mood type:" << moods[i].moodtype << endl;
     cout << "║ Mood level:" << moods[i].moodLevel << endl;
@@ -1331,5 +1333,6 @@ void preStoredMoods()
     moods[6] = { {7, 4, 2026}, 5, "Happy", "passed the exam" };
     moods[7] = { {8, 4, 2026}, 5, "Calm", "Normal day" };
     moods[8] = { {9, 4, 2026}, 2, "Happy", "a new semister comming up" };
-    moodCount = 9;
+	moods[9] = { {10, 4, 2026}, 4, "Sad", "missed my family" };
+    moodCount = 10;
 }
